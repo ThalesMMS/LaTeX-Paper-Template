@@ -1,0 +1,65 @@
+% =================================================================
+% GUIA RÁPIDO DE LaTeX (EXEMPLOS DIDÁTICOS)
+% Como usar: inclua em article-main-v2.tex se desejar.
+% =================================================================
+\section{Guia Rápido de LaTeX}
+
+\subsection{Citações e Referências}
+Use \verb+\cite{chave}+ para citar (ex.: \cite{ref:exemplo}). Use \verb+\label{...}+ e \verb+\ref{...}+ para seções/figuras/tabelas.
+
+\subsection{Figuras lado a lado (subfiguras)}
+% Nota: o template SBC usa caption2; evite o pacote caption/subcaption.
+% Use minipage e legendas textuais por subfigura, com uma legenda geral.
+\begin{figure}[h]
+  \centering
+  \begin{minipage}{.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{template_diagram1.png}\\
+    \textit{(a) [Subfigura A]}
+    \label{fig:sub-a}
+  \end{minipage}\hfill
+  \begin{minipage}{.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{template_diagram2.png}\\
+    \textit{(b) [Subfigura B]}
+    \label{fig:sub-b}
+  \end{minipage}
+  \caption{[Exemplo de figuras lado a lado]}
+  \label{fig:subcaption-exemplo}
+\end{figure}
+
+\subsection{Tabela Larga com tabularx}
+\begin{table}[h]
+  \centering
+  \caption{[Tabela com colunas flexíveis]}
+  \label{tab:tabularx-exemplo}
+  \begin{tabularx}{\linewidth}{lXX}
+    \toprule
+    Campo & Descrição (coluna X) & Observações (coluna X) \\
+    \midrule
+    A & Texto longo que se ajusta automaticamente à largura disponível & Outra observação longa para demonstração \\
+    B & Texto adicional & Mais observações \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Equações Numeradas e Referências}
+Uma equação de exemplo em~\eqref{eq:exemplo}:
+\begin{equation}
+  E = m c^{2}
+  \label{eq:exemplo}
+\end{equation}
+
+\subsection{Pseudocódigo / Código}
+Com \texttt{listings} (não requer shell-escape):
+\begin{lstlisting}[style=code, caption={Exemplo com listings}, label={lst:listings-exemplo}]
+for i in 1..N {
+  // faça algo
+}
+\end{lstlisting}
+
+% Com minted (opcional) — requer TEXFLAGS="-shell-escape" e \usepackage{minted}
+% \begin{minted}[fontsize=\footnotesize, linenos]{python}
+% for i in range(10):
+%     print(i)
+% \end{minted}

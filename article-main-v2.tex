@@ -1,0 +1,79 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE LaTeX – TRABALHO ACADÊMICO (ESQUELETO)
+% Versão: Estrutura Modular
+% Dicas:
+%  - Edite metadados em config/article-config.tex
+%  - Use [colchetes] para placeholders (renderizam bem no PDF)
+%  - Insira figuras com \includegraphics e rotule com fig:, tab:, sec:, eq:
+%  - Sumário opcional: descomente \tableofcontents
+%  - Bibliografia: escolha entre thebibliography (.tex) OU BibTeX (.bib)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+
+% =================================================================
+% CONFIGURAÇÕES CENTRALIZADAS
+% =================================================================
+\input{config/article-config}
+
+% =================================================================
+% INÍCIO DO DOCUMENTO
+% =================================================================
+\begin{document} 
+
+\maketitle
+
+% =================================================================
+% RESUMOS E ABSTRACTS
+% =================================================================
+\input{sections/abstract}
+\input{sections/resumo}
+
+% =================================================================
+% SUMÁRIO (OPCIONAL - DESCOMENTE SE NECESSÁRIO)
+% =================================================================
+% \tableofcontents % <- descomente para exibir sumário
+% \newpage
+
+% =================================================================
+% CAPÍTULOS PRINCIPAIS
+% =================================================================
+\input{chapters/01-introducao}
+\input{chapters/02-trabalhos-relacionados}
+\input{chapters/03-metodologia}
+\input{chapters/04-avaliacao-resultados}
+\input{chapters/05-detalhes-implementacao}
+\input{chapters/06-desafios-tecnicos}
+\input{chapters/07-trabalhos-futuros}
+\input{chapters/08-conclusoes-e-contribuicoes}
+
+% =================================================================
+% SEÇÕES/ANEXOS OPCIONAIS (DESCOMENTE SE PRECISAR)
+% =================================================================
+% \input{sections/agradecimentos}
+% \input{chapters/09-apendices}
+% \input{chapters/10-cronograma}
+% \input{sections/guia-rapido}
+
+% =================================================================
+% BIBLIOGRAFIA (ESCOLHA UMA OPÇÃO)
+% =================================================================
+% Opção A — thebibliography (padrão, simples):
+\input{bibliography/references}
+
+% Opção B1 — BibTeX (.bib): comente a linha acima e descomente as duas abaixo.
+% Observação: \bibliographystyle{sbc} requer que sbc.bst esteja acessível
+% (mova bibliography/sbc.bst para a raiz do projeto se necessário).
+% \bibliographystyle{sbc}
+% \bibliography{bibliography/sbc-template}
+
+% Opção B2 — biblatex + biber: configure no config/article-config.tex
+% (descomente o \usepackage[backend=biber]{biblatex} e o \addbibresource{...})
+% e então descomente abaixo para imprimir a bibliografia.
+% \printbibliography
+
+% Índice remissivo e glossário (se habilitados em config/article-config.tex)
+% \printglossaries
+% \printindex
+
+\end{document}

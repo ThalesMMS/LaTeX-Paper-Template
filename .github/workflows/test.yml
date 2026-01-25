@@ -1,0 +1,74 @@
+name: Test LaTeX Template
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - develop
+  pull_request:
+    branches:
+      - main
+      - master
+      - develop
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Template Validation Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Cache TeX Live packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            /usr/share/texlive
+            /usr/share/texmf
+            ~/.texlive
+          key: ${{ runner.os }}-texlive-${{ hashFiles('**/paper.tex', '**/config/**') }}
+          restore-keys: |
+            ${{ runner.os }}-texlive-
+
+      - name: Install TeX Live
+        run: |
+          echo "Installing TeX Live and required packages..."
+          sudo apt-get update
+          sudo apt-get install -y \
+            texlive-latex-base \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-fonts-extra \
+            texlive-bibtex-extra \
+            biber \
+            latexmk
+
+          # Verify installation
+          echo "Verifying TeX installation..."
+          pdflatex --version
+          bibtex --version
+          biber --version
+
+      - name: Make test scripts executable
+        run: |
+          chmod +x tests/*.sh
+
+      - name: Run test suite
+        run: |
+          echo "Running LaTeX Template Test Suite..."
+          bash tests/run_all_tests.sh --verbose
+
+      - name: Upload test artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts
+          path: |
+            output/
+            *.log
+            .test-*/
+          retention-days: 7
+          if-no-files-found: ignore

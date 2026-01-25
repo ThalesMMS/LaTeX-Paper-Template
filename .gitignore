@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.brf
+*.lof
+*.log
+*.lot
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.fdb_latexmk
+*.fls
+*.xdv
+*.dvi
+
+# Output and backups
+output/
+backups/
+
+# Editors
+*.swp
+*.swo
+.vscode/
+.idea/

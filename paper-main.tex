@@ -1,0 +1,52 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE LaTeX – PAPER (STREAMLINED VARIANT)
+% Versão: Paper para submissões de 6-10 páginas
+% Descrição: Variante simplificada para artigos de conferência/periódico
+%
+% Dicas:
+%  - Edite metadados em config/paper-config.tex
+%  - Use [colchetes] para placeholders (renderizam bem no PDF)
+%  - Insira figuras com \includegraphics e rotule com fig:, tab:, sec:, eq:
+%  - Estrutura mínima: apenas capítulos essenciais
+%  - Bibliografia: thebibliography (padrão simples)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+
+% =================================================================
+% CONFIGURAÇÕES CENTRALIZADAS
+% =================================================================
+\input{config/paper-config}
+
+% =================================================================
+% INÍCIO DO DOCUMENTO
+% =================================================================
+\begin{document}
+
+\maketitle
+
+% =================================================================
+% RESUMOS E ABSTRACTS
+% =================================================================
+\input{sections/abstract}
+\input{sections/resumo}
+
+% =================================================================
+% CAPÍTULOS PRINCIPAIS (ESTRUTURA MÍNIMA PARA PAPERS)
+% =================================================================
+\input{chapters/01-introducao}
+% \input{chapters/02-trabalhos-relacionados} % <- opcional, descomente se necessário
+\input{chapters/03-metodologia}
+\input{chapters/04-avaliacao-resultados}
+\input{chapters/08-conclusoes-e-contribuicoes}
+
+% =================================================================
+% BIBLIOGRAFIA (thebibliography - padrão simples)
+% =================================================================
+\input{bibliography/references}
+
+% Opção alternativa — BibTeX (.bib): comente a linha acima e descomente as duas abaixo.
+% \bibliographystyle{sbc}
+% \bibliography{bibliography/sbc-template}
+
+\end{document}

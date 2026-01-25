@@ -1,0 +1,97 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TEMPLATE LaTeX – TESE/DISSERTAÇÃO (ESQUELETO)
+% Versão: Estrutura Modular
+% Dicas:
+%  - Edite metadados em config/thesis-config.tex
+%  - Use [colchetes] para placeholders (renderizam bem no PDF)
+%  - Insira figuras com \includegraphics e rotule com fig:, tab:, sec:, eq:
+%  - Sumário (TOC), lista de figuras/tabelas são obrigatórios em teses
+%  - Bibliografia: escolha entre thebibliography (.tex) OU BibTeX (.bib)
+%  - Glossário e índice remissivo habilitados por padrão
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{report}
+
+% =================================================================
+% CONFIGURAÇÕES CENTRALIZADAS
+% =================================================================
+\input{config/thesis-config}
+
+% =================================================================
+% INÍCIO DO DOCUMENTO
+% =================================================================
+\begin{document}
+
+\maketitle
+
+% =================================================================
+% DEDICATÓRIA (OPCIONAL - DESCOMENTE SE NECESSÁRIO)
+% =================================================================
+% \input{sections/dedication}
+
+% =================================================================
+% RESUMOS E ABSTRACTS
+% =================================================================
+\input{sections/abstract}
+\input{sections/resumo}
+
+% =================================================================
+% SUMÁRIO E LISTAS (OBRIGATÓRIOS EM TESES)
+% =================================================================
+\tableofcontents
+\listoffigures
+\listoftables
+\newpage
+
+% =================================================================
+% LISTA DE ABREVIATURAS/SÍMBOLOS (DESCOMENTE SE NECESSÁRIO)
+% =================================================================
+% \printglossary[type=\acronymtype,title={Lista de Abreviaturas}]
+% \printglossary[title={Glossário}]
+% \newpage
+
+% =================================================================
+% CAPÍTULOS PRINCIPAIS
+% =================================================================
+\input{chapters/01-introducao}
+\input{chapters/02-trabalhos-relacionados}
+\input{chapters/03-metodologia}
+\input{chapters/04-avaliacao-resultados}
+\input{chapters/05-detalhes-implementacao}
+\input{chapters/06-desafios-tecnicos}
+\input{chapters/07-trabalhos-futuros}
+\input{chapters/08-conclusoes-e-contribuicoes}
+
+% =================================================================
+% AGRADECIMENTOS (OPCIONAL - DESCOMENTE SE NECESSÁRIO)
+% =================================================================
+% \input{sections/acknowledgments-thesis}
+
+% =================================================================
+% SEÇÕES/ANEXOS OPCIONAIS (DESCOMENTE SE PRECISAR)
+% =================================================================
+% \input{chapters/09-apendices}
+% \input{chapters/10-cronograma}
+% \input{sections/guia-rapido}
+
+% =================================================================
+% BIBLIOGRAFIA (ESCOLHA UMA OPÇÃO)
+% =================================================================
+% Opção A — thebibliography (padrão, simples):
+\input{bibliography/references}
+
+% Opção B1 — BibTeX (.bib): comente a linha acima e descomente as duas abaixo.
+% Observação: \bibliographystyle{sbc} requer que sbc.bst esteja acessível
+% (mova bibliography/sbc.bst para a raiz do projeto se necessário).
+% \bibliographystyle{sbc}
+% \bibliography{bibliography/sbc-template}
+
+% Opção B2 — biblatex + biber: configure no config/thesis-config.tex
+% (descomente o \usepackage[backend=biber]{biblatex} e o \addbibresource{...})
+% e então descomente abaixo para imprimir a bibliografia.
+% \printbibliography
+
+% Índice remissivo (se habilitado em config/thesis-config.tex)
+% \printindex
+
+\end{document}

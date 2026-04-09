@@ -1,116 +1,83 @@
-# LaTeX Template – Paper/Monografia/Tese (SBC)
+# LaTeX Template – Paper / Monograph / Thesis (SBC)
 
-Este repositório é um template LaTeX "esqueleto" com três variantes (paper, monografia, tese), baseado no template da SBC. Todo o conteúdo foi reduzido a placeholders para rápida personalização.
+This repository is a skeleton LaTeX template with three variants (`paper`, `monograph`, and `thesis`) based on the SBC template. The content is intentionally reduced to placeholders so it can be customized quickly.
 
-## Template Variants / Variantes do Template
+## Template Variants
 
-Este template oferece três variantes para diferentes tipos de documentos acadêmicos:
+This template offers three variants for different kinds of academic documents:
 
 ### 1. Paper (`paper-main.tex`)
-- **Uso:** Artigos de conferência/periódico (6-10 páginas)
-- **Classe:** `article`
-- **Características:**
-  - Estrutura simplificada e streamlined
-  - Capítulos essenciais apenas (introdução, trabalhos relacionados, metodologia, resultados, conclusões)
-  - Sem sumário (TOC) por padrão
-  - Bibliografia: thebibliography (simples)
-  - Ideal para: submissões rápidas, artigos curtos
+- **Use case:** Conference or journal papers (6-10 pages)
+- **Class:** `article`
+- **Features:**
+  - Simplified, streamlined structure
+  - Only the essential chapters (introduction, related work, methodology, results, conclusions)
+  - No table of contents by default
+  - Bibliography via `thebibliography` (simple/manual)
+  - Ideal for quick submissions and short papers
 - **Config:** `config/paper-config.tex`
-- **Compilação:** `make compile MAIN_FILE=paper-main` ou `make view MAIN_FILE=paper-main`
+- **Build:** `make compile MAIN_FILE=paper-main` or `make view MAIN_FILE=paper-main`
 
-### 2. Monografia (`monograph-main.tex`)
-- **Uso:** Trabalhos de conclusão de curso (TCC), monografias de especialização
-- **Classe:** `report`
-- **Características:**
-  - Estrutura completa com capítulos numerados
-  - Sumário (TOC) incluído automaticamente
-  - Todos os 8 capítulos padrão (introdução, trabalhos relacionados, metodologia, resultados, detalhes de implementação, desafios técnicos, trabalhos futuros, conclusões)
-  - Bibliografia: thebibliography ou BibTeX
-  - Ideal para: TCCs, monografias de 30-80 páginas
+### 2. Monograph (`monograph-main.tex`)
+- **Use case:** Undergraduate capstone projects, specialization monographs
+- **Class:** `report`
+- **Features:**
+  - Full structure with numbered chapters
+  - Table of contents included automatically
+  - All 8 default chapters (introduction, related work, methodology, results, implementation details, technical challenges, future work, conclusions)
+  - Bibliography via `thebibliography` or BibTeX
+  - Ideal for 30-80 page monographs
 - **Config:** `config/monograph-config.tex`
-- **Compilação:** `make compile MAIN_FILE=monograph-main` ou `make view MAIN_FILE=monograph-main`
+- **Build:** `make compile MAIN_FILE=monograph-main` or `make view MAIN_FILE=monograph-main`
 
-### 3. Tese/Dissertação (`thesis-main.tex`)
-- **Uso:** Dissertações de mestrado, teses de doutorado
-- **Classe:** `report`
-- **Características:**
-  - Estrutura completa e formal
-  - Sumário (TOC), lista de figuras, lista de tabelas
-  - Dedicatória, agradecimentos, epígrafe (opcionais)
-  - Glossário e índice remissivo habilitados por padrão
-  - Bibliografia: thebibliography ou BibTeX
-  - Ideal para: dissertações/teses longas (80-300+ páginas)
+### 3. Thesis / Dissertation (`thesis-main.tex`)
+- **Use case:** Master's theses and PhD dissertations
+- **Class:** `report`
+- **Features:**
+  - Full formal structure
+  - Table of contents, list of figures, and list of tables
+  - Dedication, acknowledgments, and epigraph (optional)
+  - Glossary and index enabled by default
+  - Bibliography via `thebibliography` or BibTeX
+  - Ideal for longer documents (80-300+ pages)
 - **Config:** `config/thesis-config.tex`
-- **Compilação:** `make compile MAIN_FILE=thesis-main` ou `make view MAIN_FILE=thesis-main`
+- **Build:** `make compile MAIN_FILE=thesis-main` or `make view MAIN_FILE=thesis-main`
 
-### Guia de Seleção / Selection Guide
+### Selection Guide
 
-| Critério | Paper | Monografia | Tese/Dissertação |
-|----------|-------|------------|------------------|
-| **Páginas típicas** | 6-10 | 30-80 | 80-300+ |
-| **Classe LaTeX** | article | report | report |
-| **Sumário (TOC)** | Não | Sim | Sim |
-| **Listas (figuras/tabelas)** | Não | Opcional | Sim |
-| **Glossário/Índice** | Não | Não | Sim |
-| **Capítulos** | Essenciais | Completos | Completos + extras |
-| **Tempo de setup** | Rápido (~5 min) | Médio (~15 min) | Completo (~30 min) |
+| Criteria | Paper | Monograph | Thesis / Dissertation |
+|----------|-------|-----------|------------------------|
+| **Typical length** | 6-10 | 30-80 | 80-300+ |
+| **LaTeX class** | `article` | `report` | `report` |
+| **Table of contents** | No | Yes | Yes |
+| **Lists (figures/tables)** | No | Optional | Yes |
+| **Glossary / Index** | No | No | Yes |
+| **Chapters** | Essential only | Full | Full + extra front/back matter |
+| **Setup time** | Fast (~5 min) | Medium (~15 min) | Full (~30 min) |
 
-**Dica:** Se está em dúvida entre monografia e tese, comece com `monograph-main.tex` e migre para `thesis-main.tex` se precisar de recursos adicionais (glossário, índice, listas).
+**Tip:** If you are unsure whether to start with the monograph or thesis variant, start with `monograph-main.tex` and migrate to `thesis-main.tex` later if you need extra features such as a glossary, index, or additional lists.
 
-## Quick Start Automatizado / Automated Quick Start
+## Automated Quick Start
 
-**Novo:** Script de inicialização automática que configura tudo em menos de 5 minutos.
+**New:** an automated bootstrap script that configures everything in under 5 minutes.
 
-### O que é quick-start.sh? / What is quick-start.sh?
+### What is `quick-start.sh`?
 
-O script `quick-start.sh` é a maneira **mais rápida** de começar a usar este template. Ele automatiza todo o processo de configuração inicial:
+The `quick-start.sh` script is the fastest way to start using this template. It automates the initial setup process:
 
-1. **Verifica dependências** - Detecta se LaTeX, Make, BibTeX/Biber estão instalados
-2. **Detecta sua plataforma** - macOS, Linux ou WSL
-3. **Fornece orientações** - Instruções específicas se faltar alguma dependência
-4. **Configura o projeto** - Executa `init-project.sh` para personalizar com suas informações
-5. **Compila o primeiro PDF** - Gera seu documento inicial automaticamente
-
-**Benefícios:**
-- **Rápido** - De download a PDF em menos de 5 minutos
-- **Sem erros** - Valida todas as dependências antes de começar
-- **Automático** - Modo interativo (com prompts) ou não-interativo (scriptable)
-- **Completo** - Tudo que você precisa em um único comando
-
----
-
-The `quick-start.sh` script is the **fastest** way to start using this template. It automates the entire initial setup process:
-
-1. **Checks dependencies** - Detects if LaTeX, Make, BibTeX/Biber are installed
+1. **Checks dependencies** - Detects whether LaTeX, Make, and BibTeX/Biber are installed
 2. **Detects your platform** - macOS, Linux, or WSL
-3. **Provides guidance** - Platform-specific installation instructions if needed
-4. **Sets up the project** - Runs `init-project.sh` to customize with your information
-5. **Compiles first PDF** - Generates your initial document automatically
+3. **Provides guidance** - Shows platform-specific install instructions if something is missing
+4. **Configures the project** - Runs `init-project.sh` to personalize the template with your information
+5. **Builds the first PDF** - Generates an initial document automatically
 
 **Benefits:**
 - **Fast** - From download to PDF in under 5 minutes
-- **Error-free** - Validates all dependencies before starting
-- **Automatic** - Interactive mode (with prompts) or non-interactive (scriptable)
-- **Complete** - Everything you need in a single command
+- **Safer** - Validates dependencies before starting
+- **Automatic** - Supports both interactive and non-interactive modes
+- **Complete** - Covers the whole initial setup with one command
 
-### Modo Interativo (Recomendado) / Interactive Mode (Recommended)
-
-Execute sem argumentos para um setup guiado passo a passo:
-
-```bash
-bash quick-start.sh
-```
-
-O script irá:
-1. Verificar se LaTeX e Make estão instalados
-2. Mostrar instruções de instalação se algo estiver faltando (específicas para seu sistema)
-3. Perguntar se deseja continuar com a configuração do projeto
-4. Executar `init-project.sh` de forma interativa (você fornece nome, autor, instituição, etc.)
-5. Compilar automaticamente o primeiro PDF
-
-**Resultado:** Projeto configurado e PDF gerado em menos de 5 minutos.
-
----
+### Interactive Mode (Recommended)
 
 Run without arguments for step-by-step guided setup:
 
@@ -119,180 +86,136 @@ bash quick-start.sh
 ```
 
 The script will:
-1. Check if LaTeX and Make are installed
-2. Show installation instructions if anything is missing (specific to your system)
-3. Ask if you want to proceed with project setup
-4. Run `init-project.sh` interactively (you provide name, author, institution, etc.)
-5. Automatically compile the first PDF
+1. Check whether LaTeX and Make are installed
+2. Show installation instructions if anything is missing
+3. Ask whether you want to continue with project setup
+4. Run `init-project.sh` interactively (name, author, institution, etc.)
+5. Automatically build the first PDF
 
-**Result:** Project configured and PDF generated in under 5 minutes.
+**Result:** a configured project and a generated PDF in under 5 minutes.
 
-### Modo Não-Interativo / Non-Interactive Mode
+### Non-Interactive Mode
 
-Para automação, CI/CD, ou quando você não quer prompts interativos:
-
-```bash
-bash quick-start.sh --non-interactive
-```
-
-Isso irá:
-- Verificar dependências (sem interação)
-- Executar `init-project.sh` com valores padrão
-- Compilar o PDF automaticamente
-
-**Nota:** Você pode personalizar seu projeto posteriormente rodando `bash init-project.sh` novamente ou editando os arquivos em `config/`.
-
----
-
-For automation, CI/CD, or when you don't want interactive prompts:
+For automation, CI/CD, or cases where you do not want interactive prompts:
 
 ```bash
 bash quick-start.sh --non-interactive
 ```
 
 This will:
-- Check dependencies (without interaction)
+- Check dependencies without interaction
 - Run `init-project.sh` with default values
-- Compile the PDF automatically
+- Build the PDF automatically
 
-**Note:** You can customize your project later by running `bash init-project.sh` again or editing files in `config/`.
+**Note:** You can customize the project later by running `bash init-project.sh` again or by editing the files in `config/`.
 
-### Opções Disponíveis / Available Options
+### Available Options
 
 ```bash
-bash quick-start.sh --help              # Mostra ajuda completa / Show help
-bash quick-start.sh --version           # Mostra versão / Show version
-bash quick-start.sh --non-interactive   # Modo automático / Automatic mode
+bash quick-start.sh --help              # Show full help
+bash quick-start.sh --version           # Show version
+bash quick-start.sh --non-interactive   # Automatic mode
 ```
 
-### Resolução de Problemas / Troubleshooting
-
-**Dependências não encontradas?**
-- O script detectará automaticamente seu sistema operacional
-- Fornecerá comandos exatos para instalar LaTeX e Make
-- Suporta: macOS (Homebrew), Linux (apt/dnf/pacman), e WSL
-
-**Erro durante compilação?**
-- Verifique `output/build.log` para detalhes
-- Execute `make clean && make compile` para tentar novamente
-- Veja a seção [Troubleshooting](#troubleshooting) abaixo
-
-**Quer personalizar depois?**
-- Execute `bash init-project.sh` novamente a qualquer momento
-- Ou edite manualmente os arquivos em `config/` (veja documentação abaixo)
-
----
+### Troubleshooting
 
 **Dependencies not found?**
-- Script automatically detects your operating system
-- Provides exact commands to install LaTeX and Make
-- Supports: macOS (Homebrew), Linux (apt/dnf/pacman), and WSL
+- The script automatically detects your operating system
+- It prints exact commands to install LaTeX and Make
+- Supported platforms: macOS (Homebrew), Linux (apt/dnf/pacman), and WSL
 
 **Compilation error?**
 - Check `output/build.log` for details
-- Run `make clean && make compile` to try again
-- See [Troubleshooting](#troubleshooting) section below
+- Run `make clean && make compile` and try again
+- See the [Troubleshooting](#faq--common-errors) section below
 
 **Want to customize later?**
 - Run `bash init-project.sh` again at any time
-- Or manually edit files in `config/` (see documentation below)
+- Or edit the files in `config/` manually
 
-### Próximos Passos / Next Steps
+### Next Steps
 
-Após executar `quick-start.sh`, você terá:
-- Projeto configurado com suas informações
-- Primeiro PDF compilado em `output/`
-- Template pronto para começar a escrever
+After running `quick-start.sh`, you will have:
+- A project configured with your information
+- A first PDF compiled in `output/`
+- A template ready for writing
 
-**Agora você pode:**
-1. Editar conteúdo em `chapters/` e `sections/`
-2. Recompilar com `make compile` ou `make paper/monograph/thesis`
-3. Personalizar configurações em `config/`
-4. Ver [CLI de Inicialização de Projeto](#cli-de-inicialização-de-projeto--project-initialization-cli) para opções avançadas
-
----
-
-After running `quick-start.sh`, you'll have:
-- Project configured with your information
-- First PDF compiled in `output/`
-- Template ready to start writing
-
-**Now you can:**
-1. Edit content in `chapters/` and `sections/`
-2. Recompile with `make compile` or `make paper/monograph/thesis`
+**Then you can:**
+1. Edit the content in `chapters/` and `sections/`
+2. Rebuild with `make compile` or `make paper/monograph/thesis`
 3. Customize settings in `config/`
-4. See [CLI de Inicialização de Projeto](#cli-de-inicialização-de-projeto--project-initialization-cli) for advanced options
+4. See [Project Initialization CLI](#project-initialization-cli) for advanced options
 
-## Quick Start / Início Rápido
+## Quick Start
 
-Escolha sua variante e compile rapidamente:
+Choose your variant and build immediately:
 
-### Paper (Artigo)
+### Paper
 ```bash
-# Compilar e visualizar um paper
-make paper          # compila output/paper-main.pdf e abre automaticamente
-make compile MAIN_FILE=paper-main   # apenas compila
-make view MAIN_FILE=paper-main      # compila e abre
+# Build and preview a paper
+make paper                          # builds output/paper-main.pdf and opens it automatically
+make compile MAIN_FILE=paper-main   # build only
+make view MAIN_FILE=paper-main      # build and open
 ```
 
-### Monograph (Monografia/TCC)
+### Monograph
 ```bash
-# Compilar e visualizar uma monografia
-make monograph      # compila output/monograph-main.pdf e abre automaticamente
-make compile MAIN_FILE=monograph-main   # apenas compila
-make view MAIN_FILE=monograph-main      # compila e abre
+# Build and preview a monograph
+make monograph                      # builds output/monograph-main.pdf and opens it automatically
+make compile MAIN_FILE=monograph-main
+make view MAIN_FILE=monograph-main
 ```
 
-### Thesis (Tese/Dissertação)
+### Thesis
 ```bash
-# Compilar e visualizar uma tese/dissertação
-make thesis         # compila output/thesis-main.pdf e abre automaticamente
-make compile MAIN_FILE=thesis-main   # apenas compila
-make view MAIN_FILE=thesis-main      # compila e abre
+# Build and preview a thesis/dissertation
+make thesis                         # builds output/thesis-main.pdf and opens it automatically
+make compile MAIN_FILE=thesis-main
+make view MAIN_FILE=thesis-main
 ```
 
-### Comandos Adicionais
+### Additional Commands
 ```bash
-make clean          # limpa arquivos temporários
-make bib MAIN_FILE=paper-main       # compila com BibTeX (se configurado)
-make view-bib MAIN_FILE=monograph-main  # compila com BibTeX e abre
+make clean                              # remove temporary files
+make bib MAIN_FILE=paper-main           # build with BibTeX (if configured)
+make view-bib MAIN_FILE=monograph-main  # build with BibTeX and open
 ```
 
-## CLI de Inicialização de Projeto / Project Initialization CLI
+## Project Initialization CLI
 
-**Nova funcionalidade:** Este template inclui uma ferramenta CLI interativa que automatiza a configuração inicial do projeto.
+**New feature:** this template includes an interactive CLI that automates initial project setup.
 
-### Visão Geral / Overview
+### Overview
 
-O script `init-project.sh` customiza automaticamente o template com suas informações (nome do projeto, autor, instituição, backend de bibliografia) e permite remover capítulos desnecessários. Elimina a necessidade de editar manualmente múltiplos arquivos de configuração.
+The `init-project.sh` script customizes the template with your information (project name, author, institution, bibliography backend) and can also remove unnecessary chapters. It avoids manual edits across multiple configuration files.
 
-**Benefícios:**
-- Setup rápido - configure todo o projeto em menos de 1 minuto
-- Zero erros - validação automática de inputs e formatos
-- Flexível - suporta modo interativo e não-interativo (scriptable)
-- Customizável - escolha variante, bibliografia, e capítulos
+**Benefits:**
+- Fast setup - configure the project in under 1 minute
+- Fewer mistakes - automatic validation of inputs and formats
+- Flexible - supports both interactive and non-interactive usage
+- Customizable - choose variant, bibliography backend, and chapters
 
-### Modo Interativo (Recomendado) / Interactive Mode (Recommended)
+### Interactive Mode (Recommended)
 
-Execute o script sem argumentos para um setup guiado passo a passo:
+Run the script without arguments for guided setup:
 
 ```bash
 bash init-project.sh
 ```
 
-O script irá solicitar:
-- **Nome do Projeto:** Título do seu trabalho
-- **Nome do Autor:** Seu nome completo
-- **Instituição:** Nome da universidade/instituto
-- **Localização:** Formato "Cidade -- Estado -- País"
-- **Email:** Seu endereço de email
-- **Variante:** paper, monograph, ou thesis
-- **Backend de Bibliografia:** thebibliography, bibtex, ou biblatex
-- **Capítulos a Remover:** (Opcional) Lista separada por vírgulas (ex: chapter2,chapter4)
+The script will ask for:
+- **Project Name:** title of your document
+- **Author Name:** your full name
+- **Institution:** university or institute name
+- **Location:** format `City -- State -- Country`
+- **Email:** your email address
+- **Variant:** `paper`, `monograph`, or `thesis`
+- **Bibliography Backend:** `thebibliography`, `bibtex`, or `biblatex`
+- **Chapters to Remove:** optional comma-separated list (for example `chapter2,chapter4`)
 
-### Modo Não-Interativo / Non-Interactive Mode
+### Non-Interactive Mode
 
-Para automação ou scripting, use o modo não-interativo com todos os argumentos:
+For automation or scripting, use non-interactive mode with all arguments:
 
 ```bash
 bash init-project.sh --non-interactive \
@@ -305,56 +228,56 @@ bash init-project.sh --non-interactive \
   --biblio thebibliography
 ```
 
-### Opções Disponíveis / Available Options
+### Available Options
 
+```text
+--help                      Show full help
+--version                   Show version
+--non-interactive           Non-interactive mode
+--name NAME                 Project name
+--author AUTHOR             Author name
+--institution INSTITUTION   Institution
+--location LOCATION         Location (City -- State -- Country)
+--email EMAIL               Contact email
+--variant VARIANT           Variant: paper, monograph, thesis
+--biblio BACKEND            Backend: thebibliography, bibtex, biblatex
+--remove-chapters CHAPTERS  Chapters to remove (optional)
 ```
---help                      Mostra ajuda completa / Show help
---version                   Mostra versão / Show version
---non-interactive           Modo não-interativo / Non-interactive mode
---name NAME                 Nome do projeto / Project name
---author AUTHOR             Nome do autor / Author name
---institution INSTITUTION   Instituição / Institution
---location LOCATION         Localização / Location (City -- State -- Country)
---email EMAIL              Email de contato / Contact email
---variant VARIANT          Variante: paper, monograph, thesis
---biblio BACKEND           Backend: thebibliography, bibtex, biblatex
---remove-chapters CHAPTERS  Capítulos a remover (opcional) / Chapters to remove (optional)
-```
 
-### Valores Válidos / Valid Values
+### Valid Values
 
-**Variants (Variantes):**
-- `paper` - Artigo curto com estrutura simplificada (6-10 páginas)
-- `monograph` - Monografia/TCC com sumário completo (30-80 páginas)
-- `thesis` - Tese/dissertação com elementos pré-textuais (80-300+ páginas)
+**Variants:**
+- `paper` - Short paper with a simplified structure (6-10 pages)
+- `monograph` - Monograph / capstone with a full table of contents (30-80 pages)
+- `thesis` - Thesis / dissertation with front matter and extra structure (80-300+ pages)
 
-**Bibliography Backends:**
-- `thebibliography` - Ambiente manual de bibliografia (sem arquivos externos)
-- `bibtex` - BibTeX tradicional com arquivo .bib
-- `biblatex` - BibLaTeX moderno com backend biber (recomendado para projetos grandes)
+**Bibliography backends:**
+- `thebibliography` - Manual bibliography environment with no external files
+- `bibtex` - Traditional BibTeX using a `.bib` file
+- `biblatex` - Modern BibLaTeX with `biber` (recommended for larger projects)
 
-**Chapters (Capítulos):**
-Use identificadores `chapter1` a `chapter10` separados por vírgula:
-- `chapter1` = 01-introducao.tex
-- `chapter2` = 02-trabalhos-relacionados.tex
-- `chapter3` = 03-metodologia.tex
-- `chapter4` = 04-avaliacao-resultados.tex
-- `chapter5` = 05-detalhes-implementacao.tex
-- `chapter6` = 06-desafios-tecnicos.tex
-- `chapter7` = 07-trabalhos-futuros.tex
-- `chapter8` = 08-conclusoes-e-contribuicoes.tex
-- `chapter9` = 09-apendices.tex
-- `chapter10` = 10-cronograma.tex
+**Chapters:**
+Use identifiers `chapter1` through `chapter10`, separated by commas:
+- `chapter1` = `01-introducao.tex`
+- `chapter2` = `02-trabalhos-relacionados.tex`
+- `chapter3` = `03-metodologia.tex`
+- `chapter4` = `04-avaliacao-resultados.tex`
+- `chapter5` = `05-detalhes-implementacao.tex`
+- `chapter6` = `06-desafios-tecnicos.tex`
+- `chapter7` = `07-trabalhos-futuros.tex`
+- `chapter8` = `08-conclusoes-e-contribuicoes.tex`
+- `chapter9` = `09-apendices.tex`
+- `chapter10` = `10-cronograma.tex`
 
-### Exemplos / Examples
+### Examples
 
-**Exemplo 1: Setup interativo completo (mais fácil)**
+**Example 1: full interactive setup (easiest)**
 ```bash
-# Inicia modo interativo - responda às perguntas
+# Starts interactive mode - answer the prompts
 bash init-project.sh
 ```
 
-**Exemplo 2: Paper rápido com BibTeX**
+**Example 2: quick paper with BibTeX**
 ```bash
 bash init-project.sh --non-interactive \
   --name "Machine Learning in Healthcare" \
@@ -366,7 +289,7 @@ bash init-project.sh --non-interactive \
   --biblio bibtex
 ```
 
-**Exemplo 3: Monografia removendo capítulos desnecessários**
+**Example 3: monograph while removing unnecessary chapters**
 ```bash
 bash init-project.sh --non-interactive \
   --name "Sistema de Recomendação com Deep Learning" \
@@ -379,7 +302,7 @@ bash init-project.sh --non-interactive \
   --remove-chapters "chapter6,chapter7"
 ```
 
-**Exemplo 4: Tese com BibLaTeX (recomendado para projetos longos)**
+**Example 4: thesis with BibLaTeX (recommended for longer projects)**
 ```bash
 bash init-project.sh --non-interactive \
   --name "Quantum Computing Applications in Cryptography" \
@@ -392,355 +315,325 @@ bash init-project.sh --non-interactive \
   --remove-chapters "chapter9,chapter10"
 ```
 
-### Fluxo de Trabalho Recomendado / Recommended Workflow
+### Recommended Workflow
 
-1. **Clone o repositório:**
+1. **Clone the repository:**
    ```bash
    git clone <repository-url>
    cd LaTeX-Paper-Template
    ```
 
-2. **Execute o script de inicialização:**
+2. **Run the initialization script:**
    ```bash
    bash init-project.sh
    ```
 
-3. **Compile e visualize:**
+3. **Build and preview:**
    ```bash
-   make paper      # ou make monograph, ou make thesis
+   make paper      # or make monograph, or make thesis
    ```
 
-4. **Edite o conteúdo:**
-   - Substitua placeholders em `chapters/`
-   - Adicione suas figuras em `assets/`
-   - Edite referências em `bibliography/`
+4. **Edit the content:**
+   - Replace placeholders in `chapters/`
+   - Add your figures to `assets/`
+   - Edit references in `bibliography/`
 
-5. **Compile novamente:**
+5. **Build again:**
    ```bash
-   make paper      # gera PDF atualizado
+   make paper      # generates an updated PDF
    ```
 
-**Dica:** Após executar o script, os arquivos de configuração em `config/` estarão automaticamente atualizados com seus dados. Você pode prosseguir diretamente para compilação com `make paper`, `make monograph`, ou `make thesis`.
+**Tip:** After running the script, the configuration files in `config/` will already be updated with your data, so you can move directly to `make paper`, `make monograph`, or `make thesis`.
 
----
+## Structure
 
-## Estrutura
-
-```
-├── init-project.sh         # Script CLI de inicialização / CLI initialization script
-├── quick-start.sh          # Script de início rápido / Quick start script
-├── paper-main.tex          # Variante: Paper/Artigo (6-10 páginas)
-├── monograph-main.tex      # Variante: Monografia/TCC (30-80 páginas)
-├── thesis-main.tex         # Variante: Tese/Dissertação (80-300+ páginas)
-├── article-main-v2.tex     # Variante legada (compatibilidade)
-├── Makefile                # Comandos de build
-├── chapters/               # Capítulos (numerados)
+```text
+├── init-project.sh         # CLI initialization script
+├── quick-start.sh          # Quick-start bootstrap script
+├── paper-main.tex          # Paper variant (6-10 pages)
+├── monograph-main.tex      # Monograph / capstone variant (30-80 pages)
+├── thesis-main.tex         # Thesis / dissertation variant (80-300+ pages)
+├── article-main-v2.tex     # Legacy variant (compatibility)
+├── Makefile                # Build commands
+├── chapters/               # Numbered chapters
 │   ├── 01-introducao.tex
 │   ├── 02-trabalhos-relacionados.tex
 │   ├── 03-metodologia.tex
-│   ├── 04-avaliacao-resultados.tex       # usa template_fig1.jpg
-│   ├── 05-detalhes-implementacao.tex     # usa template_diagram1/2.png
+│   ├── 04-avaliacao-resultados.tex       # uses template_fig1.jpg
+│   ├── 05-detalhes-implementacao.tex     # uses template_diagram1/2.png
 │   ├── 06-desafios-tecnicos.tex
 │   ├── 07-trabalhos-futuros.tex
 │   └── 08-conclusoes-e-contribuicoes.tex
-├── sections/               # Abstract/Resumo
-├── bibliography/           # Referências (thebibliography ou BibTeX)
-│   ├── references.tex      # Exemplo com thebibliography
-│   ├── sbc-template.bib    # Exemplo de base BibTeX (opcional)
-│   └── sbc.bst             # Estilo SBC (opcional)
-├── config/                 # Estilos e config (SBC + article-config)
-├── tests/                  # Suíte de testes e validação / Test suite
-│   ├── run_all_tests.sh    # Runner principal / Main test runner
-│   ├── test_*.sh           # Testes unitários / Unit tests
-│   └── validate-*.sh       # Validação E2E / E2E validation scripts
-└── output/                 # Saída compilada
+├── sections/               # Abstract / summary sections
+├── bibliography/           # References (`thebibliography` or BibTeX)
+│   ├── references.tex      # `thebibliography` example
+│   ├── sbc-template.bib    # Optional BibTeX database example
+│   └── sbc.bst             # Optional SBC style file
+├── config/                 # Styles and config files (SBC + variant configs)
+├── tests/                  # Validation and test suite
+│   ├── run_all_tests.sh    # Main test runner
+│   ├── test_*.sh           # Unit-style tests
+│   └── validate-*.sh       # E2E validation scripts
+└── output/                 # Compiled output
 ```
 
-## Uso Rápido
+## Basic Usage
 
-1. Escolha a variante adequada (veja "Guia de Seleção" acima).
-2. Edite metadados no arquivo de config da variante:
+1. Choose the appropriate variant (see the selection guide above).
+2. Edit metadata in the correct variant config file:
    - Paper: `config/paper-config.tex`
-   - Monografia: `config/monograph-config.tex`
-   - Tese: `config/thesis-config.tex`
-   - Legado: `config/article-config.tex`
-3. Substitua placeholders nos arquivos em `chapters/` e `sections/`.
-4. Compile:
+   - Monograph: `config/monograph-config.tex`
+   - Thesis: `config/thesis-config.tex`
+   - Legacy: `config/article-config.tex`
+3. Replace placeholders in files under `chapters/` and `sections/`.
+4. Build:
 
 ```bash
-# Para paper-main.tex
-make compile MAIN_FILE=paper-main   # gera output/paper-main.pdf
-make view MAIN_FILE=paper-main      # compila e abre o PDF
+# For paper-main.tex
+make compile MAIN_FILE=paper-main   # generates output/paper-main.pdf
+make view MAIN_FILE=paper-main      # builds and opens the PDF
 
-# Para monograph-main.tex
+# For monograph-main.tex
 make compile MAIN_FILE=monograph-main
 make view MAIN_FILE=monograph-main
 
-# Para thesis-main.tex
+# For thesis-main.tex
 make compile MAIN_FILE=thesis-main
 make view MAIN_FILE=thesis-main
 
-# Para limpar temporários
+# Remove temporary files
 make clean
 ```
 
-### Uso com BibTeX (.bib)
+### Using BibTeX (`.bib`)
 
 ```bash
-# Após configurar \bibliographystyle e \bibliography no arquivo principal
-make bib       # compila com BibTeX e gera o PDF
-make view-bib  # compila (BibTeX) e abre o PDF
+# After configuring \bibliographystyle and \bibliography in the main file
+make bib       # builds with BibTeX and generates the PDF
+make view-bib  # builds with BibTeX and opens the PDF
 ```
 
-## Convenções
+## Conventions
 
-- Capítulos: arquivos numerados `NN-titulo.tex` e incluídos com `\input{chapters/NN-...}`.
-- Labels: `fig:`, `tab:`, `sec:`, `eq:`. Ex.: `\label{fig:exemplo}`.
-- Imagens: use `graphicx`. O template já inclui exemplos reais:
-  - Imagens ficam em `assets/` (\graphicspath já configurado).
-  - `chapters/05-detalhes-implementacao.tex` usa `template_diagram1.png` e `template_diagram2.png`.
-  - `chapters/04-avaliacao-resultados.tex` usa `template_fig1.jpg`.
-  Substitua esses arquivos pelas suas figuras ou ajuste os caminhos.
-  - Subfiguras: devido ao uso do `caption2` no template SBC, o pacote `subcaption` não é compatível. Use `minipage` com legendas textuais (exemplo em `sections/guia-rapido.tex`).
-- Bibliografia mínima em `bibliography/references.tex` (use BibTeX se preferir).
- - Bibliografia:
-   - Padrão: `bibliography/references.tex` (thebibliography).
-   - Alternativa: BibTeX com `bibliography/sbc-template.bib` + `bibliography/sbc.bst`.
-     - Compilação manual (exemplo):
-       `pdflatex article-main-v2.tex && bibtex article-main-v2 && pdflatex article-main-v2.tex && pdflatex article-main-v2.tex`
+- Chapters use numbered files such as `NN-titulo.tex` and are included with `\input{chapters/NN-...}`.
+- Suggested labels: `fig:`, `tab:`, `sec:`, `eq:`. Example: `\label{fig:exemplo}`.
+- Images use `graphicx`. The template already includes real examples:
+  - Assets live in `assets/` (`\graphicspath` is already configured).
+  - `chapters/05-detalhes-implementacao.tex` uses `template_diagram1.png` and `template_diagram2.png`.
+  - `chapters/04-avaliacao-resultados.tex` uses `template_fig1.jpg`.
+  - Replace those files with your own figures or adjust the paths.
+- Subfigures: because the SBC template uses `caption2`, the `subcaption` package is incompatible. Use `minipage` with text captions instead (see `sections/guia-rapido.tex`).
+- Minimal bibliography lives in `bibliography/references.tex` if you prefer `thebibliography`.
+- Bibliography options:
+  - Default: `bibliography/references.tex` (`thebibliography`)
+  - Alternative: BibTeX with `bibliography/sbc-template.bib` + `bibliography/sbc.bst`
+  - Manual example:
+    `pdflatex article-main-v2.tex && bibtex article-main-v2 && pdflatex article-main-v2.tex && pdflatex article-main-v2.tex`
 
-## Bibliografia: .tex vs .bib
+## Bibliography: `.tex` vs `.bib`
 
-- Arquivo `.tex` (thebibliography)
-  - Entradas escritas manualmente em `bibliography/references.tex`.
-  - Sem ferramentas extras; ideal para listas pequenas/estáticas.
-- Arquivo `.bib` (BibTeX)
-  - Referências estruturadas em `bibliography/sbc-template.bib`; estilo definido por `sbc.bst`.
-  - Consistência automática e reuso entre projetos; ideal para muitas referências.
-- Como alternar para BibTeX neste template
-  - No arquivo principal da sua variante (ex.: `paper-main.tex`, `monograph-main.tex`, `thesis-main.tex`), comente a linha: `\input{bibliography/references}`.
-  - Adicione ao final do arquivo principal:
-    `\bibliographystyle{sbc}` e `\bibliography{bibliography/sbc-template}`.
-  - Compile com: `make bib MAIN_FILE=<variante>` (ou manualmente `pdflatex → bibtex → pdflatex → pdflatex`).
-  - Observação: se o BibTeX não localizar `sbc.bst` dentro de `bibliography/`, mova `sbc.bst` para a raiz do projeto ou ajuste seu TEXINPUTS.
+- **`.tex` file (`thebibliography`)**
+  - Entries are written manually in `bibliography/references.tex`
+  - No extra tooling required; ideal for small or static lists
+- **`.bib` file (BibTeX)**
+  - References live in `bibliography/sbc-template.bib`, with style defined by `sbc.bst`
+  - Better consistency and reuse across projects; ideal for larger bibliographies
+- **How to switch this template to BibTeX**
+  - In your main variant file (for example `paper-main.tex`, `monograph-main.tex`, or `thesis-main.tex`), comment out: `\input{bibliography/references}`
+  - Add the following at the end of the main file:
+    `\bibliographystyle{sbc}` and `\bibliography{bibliography/sbc-template}`
+  - Build with `make bib MAIN_FILE=<variant>` (or manually `pdflatex → bibtex → pdflatex → pdflatex`)
+  - If BibTeX cannot find `sbc.bst` inside `bibliography/`, move `sbc.bst` to the project root or adjust `TEXINPUTS`
 
-## Como Usar (Passo a Passo)
+## Step-by-Step Usage
 
-1) Metadados (título, autor, instituição)
-- Edite o arquivo de config da sua variante:
-  - Paper: `config/paper-config.tex`
-  - Monografia: `config/monograph-config.tex`
-  - Tese: `config/thesis-config.tex`
-  - Legado: `config/article-config.tex`
-- Preencha os comandos:
-  - `\newcommand{\DocumentTitle}{[Título do Trabalho]}`
-  - `\newcommand{\AuthorName}{[Nome do Autor]}`
-  - `\newcommand{\AuthorInstitution}{[Departamento / Curso] -- [Instituição]}`
-  - `\newcommand{\AuthorLocation}{[Cidade] -- [UF] -- [País]}`
-  - `\newcommand{\AuthorEmail}{[email@exemplo.com]}`
-- Os metadados do PDF (hypersetup) são preenchidos automaticamente.
+### 1) Metadata (title, author, institution)
+Edit the correct variant config file:
+- Paper: `config/paper-config.tex`
+- Monograph: `config/monograph-config.tex`
+- Thesis: `config/thesis-config.tex`
+- Legacy: `config/article-config.tex`
 
-2) Estrutura de pastas
-- `chapters/`: capítulos numerados `NN-nome.tex` incluídos via `\input{chapters/NN-nome}`.
-- `sections/`: abstract/resumo.
-- `bibliography/`: referências em `references.tex` (thebibliography) ou `sbc-template.bib` (BibTeX) + `sbc.bst`.
-- `config/`: estilos e centralização de pacotes/macros.
-- `assets/`: imagens/diagramas; já incluída no caminho por `\graphicspath`.
-- `output/`: PDF final e `build.log` (gerado pelo Makefile).
+Fill in the commands:
+- `\newcommand{\DocumentTitle}{[Work Title]}`
+- `\newcommand{\AuthorName}{[Author Name]}`
+- `\newcommand{\AuthorInstitution}{[Department / Program] -- [Institution]}`
+- `\newcommand{\AuthorLocation}{[City] -- [State] -- [Country]}`
+- `\newcommand{\AuthorEmail}{[email@example.com]}`
 
-3) Adicionar capítulos/seções
-- Crie `chapters/09-apendices.tex` (exemplo) e adicione no arquivo principal da sua variante (ex.: `paper-main.tex`, `monograph-main.tex`, `thesis-main.tex`):
+PDF metadata (`hypersetup`) is filled automatically.
+
+### 2) Folder structure
+- `chapters/`: numbered chapters included via `\input{chapters/NN-name}`
+- `sections/`: abstract / summary sections
+- `bibliography/`: references in `references.tex` (`thebibliography`) or `sbc-template.bib` (BibTeX) + `sbc.bst`
+- `config/`: styles and centralized packages/macros
+- `assets/`: images/diagrams, already included via `\graphicspath`
+- `output/`: final PDF and `build.log` generated by the Makefile
+
+### 3) Add chapters / sections
+- Create `chapters/09-apendices.tex` (for example) and add it to the main file of your variant:
   `\input{chapters/09-apendices}`
-- Use labels: `\label{sec:minha-secao}` e referências `\ref{sec:minha-secao}`.
+- Use labels such as `\label{sec:my-section}` and references such as `\ref{sec:my-section}`.
 
-4) Figuras e tabelas
-- Imagens: coloque arquivos em `assets/` e inclua com `\includegraphics[width=...] {arquivo}` (sem caminho, graças ao `\graphicspath`). Rotule com `\label{fig:...}` e referencie com `\ref{fig:...}`.
-- Tabelas: prefira `booktabs` (`\toprule`, `\midrule`, `\bottomrule`). Veja o exemplo em `04-avaliacao-resultados.tex`.
- - Tabelas largas com `tabularx`: exemplo em `sections/guia-rapido.tex` (usa colunas `X`).
+### 4) Figures and tables
+- Images: place files in `assets/` and include them with `\includegraphics[width=...]{file}` (without a path, thanks to `\graphicspath`). Add `\label{fig:...}` and refer to them with `\ref{fig:...}`.
+- Tables: prefer `booktabs` (`\toprule`, `\midrule`, `\bottomrule`). See the example in `04-avaliacao-resultados.tex`.
+- Wide tables with `tabularx`: see the example in `sections/guia-rapido.tex` using `X` columns.
 
-5) Citações e bibliografia
-- thebibliography: edite `bibliography/references.tex` e cite com `\cite{chave}`.
-- BibTeX: comente `\input{bibliography/references}` e descomente:
-  `\bibliographystyle{sbc}` e `\bibliography{bibliography/sbc-template}`.
-  Compile com `make bib`.
+### 5) Citations and bibliography
+- `thebibliography`: edit `bibliography/references.tex` and cite with `\cite{key}`
+- BibTeX: comment out `\input{bibliography/references}` and uncomment:
+  `\bibliographystyle{sbc}` and `\bibliography{bibliography/sbc-template}`
+  Then run `make bib`.
 
-6) Sumário e hyperlinks
-- **Paper:** sumário não é comum em artigos curtos; descomente `\tableofcontents` se necessário.
-- **Monografia/Tese:** sumário (`\tableofcontents`) já incluído automaticamente.
-- Os links e metadados do PDF são configurados por `hyperref` (nos arquivos de config).
+### 6) Table of contents and hyperlinks
+- **Paper:** a table of contents is uncommon in short papers; uncomment `\tableofcontents` only if needed
+- **Monograph / Thesis:** `\tableofcontents` is already included automatically
+- PDF links and metadata are configured by `hyperref` in the config files
 
-7) Guia Rápido de LaTeX
-- Exemplos prontos (figuras lado a lado com `minipage`, tabela larga com `tabularx`, equações com `\eqref`, `listings` e opcional `minted`) estão em `sections/guia-rapido.tex`. Para incluir: `\input{sections/guia-rapido}`.
+### 7) Quick LaTeX guide
+Ready-made examples (side-by-side figures with `minipage`, wide tables with `tabularx`, equations with `\eqref`, `listings`, and optional `minted`) live in `sections/guia-rapido.tex`. Include them with:
 
-8) Glossário e Índice (opcionais)
-- Glossário:
-  - Ative em `config/article-config.tex`: `\usepackage[acronym]{glossaries}` e `\makeglossaries`.
-  - Defina entradas com `\newglossaryentry`/`\newacronym` (crie um arquivo dedicado se preferir) e chame `\printglossaries` no final do documento.
-  - Compile com: `make glossary` (gera e integra o glossário).
-- Índice remissivo:
-  - Ative em `config/article-config.tex`: `\usepackage{imakeidx}` e `\makeindex`.
-  - Marque termos com `\index{termo}` e chame `\printindex` no final.
-  - Compile com: `make index`.
+```tex
+\input{sections/guia-rapido}
+```
 
-9) Compilar e visualizar
-- Padrão: `make compile` (2 passagens de pdflatex) e `make view`.
-- BibTeX: `make bib` ou `make view-bib`.
-- Logs: consulte `output/build.log` em caso de erro.
+### 8) Glossary and index (optional)
+- **Glossary**
+  - Enable in `config/article-config.tex`: `\usepackage[acronym]{glossaries}` and `\makeglossaries`
+  - Define entries with `\newglossaryentry` / `\newacronym` and call `\printglossaries` at the end of the document
+  - Build with `make glossary`
+- **Index**
+  - Enable in `config/article-config.tex`: `\usepackage{imakeidx}` and `\makeindex`
+  - Mark terms with `\index{term}` and call `\printindex` at the end
+  - Build with `make index`
 
-## Makefile explicado
+### 9) Build and preview
+- Default: `make compile` (2 `pdflatex` passes) and `make view`
+- BibTeX: `make bib` or `make view-bib`
+- Logs: inspect `output/build.log` when there is an error
 
-- Variáveis:
-  - `MAIN_FILE`: arquivo principal sem extensão (padrão: `article-main-v2`).
-    - Para outras variantes, use: `MAIN_FILE=paper-main`, `MAIN_FILE=monograph-main`, ou `MAIN_FILE=thesis-main`.
-  - `OUTPUT_DIR`: pasta de saída (`output/`).
-  - `BACKUP_DIR`: onde ficam backups (`backups/`).
-  - `ENGINE`: motor LaTeX (`pdflatex`, `xelatex` ou `lualatex`).
-  - `TEXFLAGS`: flags extras (ex.: `-shell-escape` para `minted`).
-- Alvos:
-  - `make compile`: compila com thebibliography; saída silenciosa; log em `output/build.log`.
-  - `make toc`: executa uma terceira passada do engine quando o log indicar mudança de TOC/refs.
-  - `make bib`: compila com BibTeX (requer `\bibliographystyle` e `\bibliography`).
-  - `make view` / `make view-bib` / `make view-biblatex`: compila e abre o PDF.
-  - `make clean`: limpa temporários e apaga `output/`.
-  - `make backup`: cria um `.tar.gz` com diretórios principais (sem `output/`).
-  - `make stats`: contagem simples de linhas/palavras.
-  - `make help`: resume os comandos; indique logs em `output/build.log`.
-  - Variável `ENGINE`: troca do motor (`pdflatex` padrão):
-    - Ex.: `make ENGINE=xelatex compile` ou `make ENGINE=lualatex biblatex`.
+## Makefile Explained
 
-## FAQ / Erros Comuns
+### Variables
+- `MAIN_FILE`: main file without extension (default: `article-main-v2`)
+  - For the other variants, use `MAIN_FILE=paper-main`, `MAIN_FILE=monograph-main`, or `MAIN_FILE=thesis-main`
+- `OUTPUT_DIR`: output directory (`output/`)
+- `BACKUP_DIR`: backup location (`backups/`)
+- `ENGINE`: LaTeX engine (`pdflatex`, `xelatex`, or `lualatex`)
+- `TEXFLAGS`: extra flags (for example `-shell-escape` when using `minted`)
 
-- Referências indefinidas (??) ou citações em branco
-  - Rode outra passagem de `make compile` (refs internas) ou `make bib`/`make biblatex` (quando usar bibliografia externa).
-  - Verifique chaves `\label{...}` e `\cite{...}` correspondentes.
-- Figura não encontrada
-  - Confirme o nome e extensão do arquivo em `assets/` (sensível a maiúsculas/minúsculas).
-  - `\graphicspath` já aponta para `assets/`; inclua sem caminho: `\includegraphics{arquivo}`.
-- Erros de fonte/acentuação
-  - O template usa `\usepackage[T1]{fontenc}` e `\usepackage[utf8]{inputenc}`; se usar XeLaTeX/LuaLaTeX, remova `inputenc` e configure fontes com `fontspec` (opcional).
-- Links não clicáveis
-  - `hyperref` já está ativado; compile duas vezes para ajustar sumário e anchors.
+### Targets
+- `make compile`: builds with `thebibliography`; quiet output; log written to `output/build.log`
+- `make toc`: runs a third engine pass when the log indicates TOC/reference changes
+- `make bib`: builds with BibTeX (requires `\bibliographystyle` and `\bibliography`)
+- `make view` / `make view-bib` / `make view-biblatex`: build and open the PDF
+- `make clean`: remove temporary files and delete `output/`
+- `make backup`: create a `.tar.gz` containing the main directories (excluding `output/`)
+- `make stats`: simple line/word counts
+- `make help`: summarize commands and point to `output/build.log`
+- `ENGINE` override examples:
+  - `make ENGINE=xelatex compile`
+  - `make ENGINE=lualatex biblatex`
 
-## Dicas
+## FAQ / Common Errors
 
-- Centralize novos macros/pacotes no arquivo de config da sua variante (`config/paper-config.tex`, `config/monograph-config.tex`, `config/thesis-config.tex`).
-- Mantenha o texto conciso e evite linhas muito longas.
-- Em caso de erro, rode `make clean` e compile novamente.
-- Para migrar entre variantes, copie os metadados do config e ajuste os `\input{chapters/...}` no arquivo principal.
+### Undefined references (`??`) or blank citations
+- Run another `make compile` pass for internal references
+- Or run `make bib` / `make biblatex` when using an external bibliography backend
+- Check that matching `\label{...}` and `\cite{...}` keys exist
 
-## Validação e Testes / Testing & Validation
+### Figure not found
+- Confirm the filename and extension inside `assets/` (case-sensitive)
+- `\graphicspath` already points to `assets/`, so use `\includegraphics{file}` without a path
 
-Este template inclui uma **suíte de testes abrangente** que valida automaticamente a integridade do template e garante que todas as variantes compilam corretamente.
+### Font / accent issues
+- The template uses `\usepackage[T1]{fontenc}` and `\usepackage[utf8]{inputenc}`
+- If you use XeLaTeX or LuaLaTeX, remove `inputenc` and configure fonts with `fontspec` if desired
 
-### Visão Geral / Overview
+### Links are not clickable
+- `hyperref` is already enabled
+- Compile twice so the table of contents and anchors are refreshed correctly
 
-A suíte de testes valida:
-- **Arquivos Obrigatórios** - Todos os arquivos essenciais do template estão presentes
-- **Compilação** - Todas as 3 variantes (paper, monograph, thesis) compilam com sucesso
-- **Bibliografia** - Todos os 3 backends (thebibliography, BibTeX, BibLaTeX) funcionam
-- **Avisos LaTeX** - Detecção de referências indefinidas, citações, overfull hbox, etc.
-- **Sistema de Build** - Makefile e scripts de inicialização funcionam corretamente
+## Tips
 
-**Cobertura Total:** ~75 verificações individuais em ~80 segundos
+- Keep new macros and packages centralized in the variant config file (`config/paper-config.tex`, `config/monograph-config.tex`, or `config/thesis-config.tex`)
+- Keep the text concise and avoid very long lines where possible
+- If something breaks, run `make clean` and build again
+- When migrating between variants, copy metadata from the config file and adjust the `\input{chapters/...}` lines in the main file
 
----
+## Testing & Validation
 
-The template includes a **comprehensive test suite** that automatically validates template integrity and ensures all variants compile correctly.
+This template includes a comprehensive test suite that validates template integrity automatically and ensures that all variants compile correctly.
+
+### Overview
 
 The test suite validates:
-- **Required Files** - All essential template files are present
-- **Compilation** - All 3 variants (paper, monograph, thesis) compile successfully
-- **Bibliography** - All 3 backends (thebibliography, BibTeX, BibLaTeX) work
-- **LaTeX Warnings** - Detection of undefined references, citations, overfull hbox, etc.
-- **Build System** - Makefile and initialization scripts work correctly
+- **Required files** - All essential template files are present
+- **Compilation** - All 3 variants (`paper`, `monograph`, `thesis`) compile successfully
+- **Bibliography** - All 3 backends (`thebibliography`, BibTeX, BibLaTeX) work
+- **LaTeX warnings** - Detects undefined references, citations, overfull hboxes, and related issues
+- **Build system** - Confirms that the Makefile and initialization scripts work correctly
 
-**Total Coverage:** ~75 individual checks in ~80 seconds
+**Total coverage:** about 75 individual checks in roughly 80 seconds.
 
-### Executar Testes / Running Tests
+### Running Tests
 
-**Executar todos os testes:** / **Run all tests:**
+**Run all tests:**
 ```bash
 bash tests/run_all_tests.sh
 ```
 
-**Executar teste específico:** / **Run specific test:**
+**Run a specific test:**
 ```bash
 bash tests/run_all_tests.sh --test required_files
 bash tests/run_all_tests.sh --test compilation_bibtex
 ```
 
-**Listar testes disponíveis:** / **List available tests:**
+**List available tests:**
 ```bash
 bash tests/run_all_tests.sh --list
 ```
 
-**Modo verboso (debugging):** / **Verbose mode (debugging):**
+**Verbose mode (debugging):**
 ```bash
 bash tests/run_all_tests.sh --verbose
 ```
 
-### Testes Disponíveis / Available Tests
+### Available Tests
 
-1. **test_required_files** - Valida presença de todos os arquivos essenciais
-2. **test_compilation_thebibliography** - Compila todas as variantes com `thebibliography`
-3. **test_compilation_bibtex** - Compila todas as variantes com BibTeX
-4. **test_compilation_biblatex** - Compila todas as variantes com BibLaTeX/Biber
-5. **test_latex_warnings** - Detecta e reporta avisos comuns do LaTeX
+1. `test_required_files` - validates the presence of all essential files
+2. `test_compilation_thebibliography` - compiles all variants with `thebibliography`
+3. `test_compilation_bibtex` - compiles all variants with BibTeX
+4. `test_compilation_biblatex` - compiles all variants with BibLaTeX / Biber
+5. `test_latex_warnings` - detects and reports common LaTeX warnings
 
-### Pré-requisitos para Testes / Test Prerequisites
+### Test Prerequisites
 
-**Para testes de compilação, você precisa:** / **For compilation tests, you need:**
-- Distribuição LaTeX (TeX Live, MiKTeX, ou MacTeX)
-- `pdflatex` disponível no PATH
-- `bibtex` para testes com BibTeX
-- `biber` para testes com BibLaTeX
-- Utilitário `make`
+For compilation tests, you need:
+- A LaTeX distribution (TeX Live, MiKTeX, or MacTeX)
+- `pdflatex` available in `PATH`
+- `bibtex` for BibTeX tests
+- `biber` for BibLaTeX tests
+- `make`
 
-**Nota:** O teste de arquivos obrigatórios (`test_required_files`) funciona sem instalação do LaTeX.
+**Note:** `test_required_files` works even without LaTeX installed.
 
----
+### Complete Documentation
 
-**Note:** The required files test (`test_required_files`) works without LaTeX installation.
-
-### Documentação Completa / Complete Documentation
-
-Para documentação detalhada sobre a suíte de testes, incluindo:
-- Arquitetura dos testes
-- Integração CI/CD
-- Como adicionar novos testes
-- Troubleshooting
-- Melhores práticas
-
-**Veja:** [`tests/README.md`](tests/README.md)
-
----
-
-For detailed test suite documentation, including:
+For detailed test-suite documentation, including:
 - Test architecture
 - CI/CD integration
 - How to add new tests
 - Troubleshooting
 - Best practices
 
-**See:** [`tests/README.md`](tests/README.md)
+See [`tests/README.md`](tests/README.md).
 
-### Integração CI/CD / CI/CD Integration
+### CI/CD Integration
 
-A suíte de testes é projetada para integração com pipelines CI/CD:
-
-```yaml
-# Exemplo GitHub Actions
-- name: Run LaTeX Template Tests
-  run: bash tests/run_all_tests.sh
-```
-
-**Códigos de saída:** / **Exit codes:**
-- `0` - Todos os testes passaram (seguro para deploy)
-- `1` - Alguns testes falharam (bloquear deployment)
-
----
-
-The test suite is designed for CI/CD pipeline integration:
+The test suite is designed for CI/CD pipelines:
 
 ```yaml
 # GitHub Actions example

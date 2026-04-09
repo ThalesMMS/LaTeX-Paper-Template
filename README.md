@@ -31,7 +31,7 @@ This template offers three variants for different kinds of academic documents:
 - **Build:** `make compile MAIN_FILE=monograph-main` or `make view MAIN_FILE=monograph-main`
 
 ### 3. Thesis / Dissertation (`thesis-main.tex`)
-- **Use case:** Master's dissertations and PhD theses
+- **Use case:** Master's theses and PhD dissertations
 - **Class:** `report`
 - **Features:**
   - Full formal structure
@@ -422,7 +422,7 @@ make view-bib  # builds with BibTeX and opens the PDF
   - `chapters/05-detalhes-implementacao.tex` uses `template_diagram1.png` and `template_diagram2.png`.
   - `chapters/04-avaliacao-resultados.tex` uses `template_fig1.jpg`.
   - Replace those files with your own figures or adjust the paths.
-- Subfigures: because the SBC template uses `caption2`, the `subcaption` package is not compatible. Use `minipage` with text captions instead (see `sections/guia-rapido.tex`).
+- Subfigures: because the SBC template uses `caption2`, the `subcaption` package is incompatible. Use `minipage` with text captions instead (see `sections/guia-rapido.tex`).
 - Minimal bibliography lives in `bibliography/references.tex` if you prefer `thebibliography`.
 - Bibliography options:
   - Default: `bibliography/references.tex` (`thebibliography`)

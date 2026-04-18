@@ -174,12 +174,18 @@ for script in "${TEST_SCRIPTS[@]}"; do
     cd "${PROJECT_DIR}"
 
     if [ "$VERBOSE" = true ]; then
-        bash "$script"
-        TEST_EXIT_CODE=$?
+        if bash "$script"; then
+            TEST_EXIT_CODE=0
+        else
+            TEST_EXIT_CODE=$?
+        fi
     else
         # Capture output and only show if test fails
-        TEST_OUTPUT=$(bash "$script" 2>&1)
-        TEST_EXIT_CODE=$?
+        if TEST_OUTPUT=$(bash "$script" 2>&1); then
+            TEST_EXIT_CODE=0
+        else
+            TEST_EXIT_CODE=$?
+        fi
         if [ $TEST_EXIT_CODE -ne 0 ]; then
             echo "$TEST_OUTPUT"
         else

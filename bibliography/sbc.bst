@@ -1,43 +1,6 @@
 %% copy of "apalike" for SBC (no comma before year in citation label)
-
-% BibTeX `apalike' bibliography style (24-Jan-88 version)
-% Adapted from the `alpha' style, version 0.99a; for BibTeX version 0.99a.
-% Copyright (C) 1988, all rights reserved.
-% Copying of this file is allowed, provided that if you make any changes at all
-% you name it something other than `apalike.bst'.
-% This restriction helps ensure that all copies are identical.
-% Differences between this style and `alpha' are generally heralded by a `%'.
-% The file btxbst.doc has the documentation for alpha.bst.
-%
-% This style should be used with the `apalike' LaTeX style (apalike.sty).
-% \cite's come out like "(Jones, 1986)" in the text but there are no labels
-% in the bibliography, and something like "(1986)" comes out immediately
-% after the author.  Author (and editor) names appear as last name, comma,
-% initials.  A `year' field is required for every entry, and so is either
-% an author (or in some cases, an editor) field or a key field.
-%
-% Editorial note:
-% Many journals require a style like `apalike', but I strongly, strongly,
-% strongly recommend that you not use it if you have a choice---use something
-% like `plain' instead.  Mary-Claire van Leunen (A Handbook for Scholars,
-% Knopf, 1979) argues convincingly that a style like `plain' encourages better
-% writing than one like `apalike'.  Furthermore the strongest arguments for
-% using an author-date style like `apalike'---that it's "the most practical"
-% (The Chicago Manual of Style, University of Chicago Press, thirteenth
-% edition, 1982, pages 400--401)---fall flat on their face with the new
-% computer-typesetting technology.  For instance page 401 anachronistically
-% states "The chief disadvantage of [a style like `plain'] is that additions
-% or deletions cannot be made after the manuscript is typed without changing
-% numbers in both text references and list."  LaTeX sidesteps the disadvantage.
-%
-% History:
-%   15-sep-86	(SK,OP)	Original version, by Susan King and Oren Patashnik.
-%   10-nov-86	(OP)	Truncated the sort.key$ string to the correct length
-%			in bib.sort.order to eliminate error message.
-%   24-jan-88	(OP)	Updated for BibTeX version 0.99a, from alpha.bst 0.99a;
-%			apalike now sorts by author, then year, then title;
-%			THIS `apalike' VERSION DOES NOT WORK WITH BIBTEX 0.98i.
-
+% Runtime BibTeX style for \bibliographystyle{sbc}.
+% Provenance and original apalike notes: docs/sbc-bst-provenance.md
 ENTRY
   { address
     author
@@ -64,18 +27,14 @@ ENTRY
   }
   {}
   { label extra.label sort.label }
-
 INTEGERS { output.state before.all mid.sentence after.sentence after.block }
-
 FUNCTION {init.state.consts}
 { #0 'before.all :=
   #1 'mid.sentence :=
   #2 'after.sentence :=
   #3 'after.block :=
 }
-
 STRINGS { s t }
-
 FUNCTION {output.nonnull}
 { 's :=
   output.state mid.sentence =
@@ -96,14 +55,12 @@ FUNCTION {output.nonnull}
   if$
   s
 }
-
 FUNCTION {output}
 { duplicate$ empty$
     'pop$
     'output.nonnull
   if$
 }
-
 FUNCTION {output.check}
 { 't :=
   duplicate$ empty$
@@ -111,7 +68,6 @@ FUNCTION {output.check}
     'output.nonnull
   if$
 }
-
 %					apalike needs this function because
 %					the year has special punctuation;
 %					apalike ignores the month
@@ -124,7 +80,6 @@ FUNCTION {output.year.check}
     }
   if$
 }
-
 FUNCTION {output.bibitem}
 { newline$
   "\bibitem[" write$
@@ -136,20 +91,17 @@ FUNCTION {output.bibitem}
   ""
   before.all 'output.state :=
 }
-
 FUNCTION {fin.entry}
 { add.period$
   write$
   newline$
 }
-
 FUNCTION {new.block}
 { output.state before.all =
     'skip$
     { after.block 'output.state := }
   if$
 }
-
 FUNCTION {new.sentence}
 { output.state after.block =
     'skip$
@@ -160,25 +112,21 @@ FUNCTION {new.sentence}
     }
   if$
 }
-
 FUNCTION {not}
 {   { #0 }
     { #1 }
   if$
 }
-
 FUNCTION {and}
 {   'skip$
     { pop$ #0 }
   if$
 }
-
 FUNCTION {or}
 {   { pop$ #1 }
     'skip$
   if$
 }
-
 FUNCTION {new.block.checkb}
 { empty$
   swap$ empty$
@@ -187,23 +135,19 @@ FUNCTION {new.block.checkb}
     'new.block
   if$
 }
-
 FUNCTION {field.or.null}
 { duplicate$ empty$
     { pop$ "" }
     'skip$
   if$
 }
-
 FUNCTION {emphasize}
 { duplicate$ empty$
     { pop$ "" }
     { "{\em " swap$ * "}" * }
   if$
 }
-
 INTEGERS { nameptr namesleft numnames }
-
 FUNCTION {format.names}
 { 's :=
   #1 'nameptr :=
@@ -232,21 +176,18 @@ FUNCTION {format.names}
     }
   while$
 }
-
 FUNCTION {format.authors}
 { author empty$
     { "" }
     { author format.names }
   if$
 }
-
 FUNCTION {format.key}			% this function is just for apalike
 { empty$
     { key field.or.null }
     { "" }
   if$
 }
-
 FUNCTION {format.editors}
 { editor empty$
     { "" }
@@ -258,14 +199,12 @@ FUNCTION {format.editors}
     }
   if$
 }
-
 FUNCTION {format.title}
 { title empty$
     { "" }
     { title "t" change.case$ }
   if$
 }
-
 FUNCTION {n.dashify}
 { 't :=
   ""
@@ -290,11 +229,9 @@ FUNCTION {n.dashify}
     }
   while$
 }
-
 FUNCTION {format.btitle}
 { title emphasize
 }
-
 FUNCTION {tie.or.space.connect}
 { duplicate$ text.length$ #3 <
     { "~" }
@@ -302,14 +239,12 @@ FUNCTION {tie.or.space.connect}
   if$
   swap$ * *
 }
-
 FUNCTION {either.or.check}
 { empty$
     'pop$
     { "can't use both " swap$ * " fields in " * cite$ * warning$ }
   if$
 }
-
 FUNCTION {format.bvolume}
 { volume empty$
     { "" }
@@ -322,7 +257,6 @@ FUNCTION {format.bvolume}
     }
   if$
 }
-
 FUNCTION {format.number.series}
 { volume empty$
     { number empty$
@@ -342,7 +276,6 @@ FUNCTION {format.number.series}
     { "" }
   if$
 }
-
 FUNCTION {format.edition}
 { edition empty$
     { "" }
@@ -353,9 +286,7 @@ FUNCTION {format.edition}
     }
   if$
 }
-
 INTEGERS { multiresult }
-
 FUNCTION {multi.page.check}
 { 't :=
   #0 'multiresult :=
@@ -375,7 +306,6 @@ FUNCTION {multi.page.check}
   while$
   multiresult
 }
-
 FUNCTION {format.pages}
 { pages empty$
     { "" }
@@ -386,7 +316,6 @@ FUNCTION {format.pages}
     }
   if$
 }
-
 FUNCTION {format.vol.num.pages}
 { volume field.or.null
   number empty$
@@ -407,7 +336,6 @@ FUNCTION {format.vol.num.pages}
     }
   if$
 }
-
 FUNCTION {format.chapter.pages}
 { chapter empty$
     'format.pages
@@ -423,7 +351,6 @@ FUNCTION {format.chapter.pages}
     }
   if$
 }
-
 FUNCTION {format.in.ed.booktitle}
 { booktitle empty$
     { "" }
@@ -434,7 +361,6 @@ FUNCTION {format.in.ed.booktitle}
     }
   if$
 }
-
 FUNCTION {format.thesis.type}
 { type empty$
     'skip$
@@ -443,7 +369,6 @@ FUNCTION {format.thesis.type}
     }
   if$
 }
-
 FUNCTION {format.tr.number}
 { type empty$
     { "Technical Report" }
@@ -454,12 +379,10 @@ FUNCTION {format.tr.number}
     { number tie.or.space.connect }
   if$
 }
-
 FUNCTION {format.article.crossref}
 { "In"							% this is for apalike
   " \cite{" * crossref * "}" *
 }
-
 FUNCTION {format.book.crossref}
 { volume empty$
     { "empty volume in " cite$ * "'s crossref of " * crossref * warning$
@@ -471,12 +394,10 @@ FUNCTION {format.book.crossref}
   if$
   "\cite{" * crossref * "}" *				% this is for apalike
 }
-
 FUNCTION {format.incoll.inproc.crossref}
 { "In"							% this is for apalike
   " \cite{" * crossref * "}" *
 }
-
 FUNCTION {article}
 { output.bibitem
   format.authors "author" output.check
@@ -497,7 +418,6 @@ FUNCTION {article}
   note output
   fin.entry
 }
-
 FUNCTION {book}
 { output.bibitem
   author empty$
@@ -531,7 +451,6 @@ FUNCTION {book}
   note output
   fin.entry
 }
-
 FUNCTION {booklet}
 { output.bibitem
   format.authors output
@@ -546,7 +465,6 @@ FUNCTION {booklet}
   note output
   fin.entry
 }
-
 FUNCTION {inbook}
 { output.bibitem
   author empty$
@@ -582,7 +500,6 @@ FUNCTION {inbook}
   note output
   fin.entry
 }
-
 FUNCTION {incollection}
 { output.bibitem
   format.authors "author" output.check
@@ -609,7 +526,6 @@ FUNCTION {incollection}
   note output
   fin.entry
 }
-
 FUNCTION {inproceedings}
 { output.bibitem
   format.authors "author" output.check
@@ -636,9 +552,7 @@ FUNCTION {inproceedings}
   note output
   fin.entry
 }
-
 FUNCTION {conference} { inproceedings }
-
 FUNCTION {manual}
 { output.bibitem
   format.authors output
@@ -654,7 +568,6 @@ FUNCTION {manual}
   note output
   fin.entry
 }
-
 FUNCTION {mastersthesis}
 { output.bibitem
   format.authors "author" output.check
@@ -670,7 +583,6 @@ FUNCTION {mastersthesis}
   note output
   fin.entry
 }
-
 FUNCTION {misc}
 { output.bibitem
   format.authors output
@@ -684,7 +596,6 @@ FUNCTION {misc}
   note output
   fin.entry
 }
-
 FUNCTION {phdthesis}
 { output.bibitem
   format.authors "author" output.check
@@ -700,7 +611,6 @@ FUNCTION {phdthesis}
   note output
   fin.entry
 }
-
 FUNCTION {proceedings}
 { output.bibitem
   format.editors output
@@ -718,7 +628,6 @@ FUNCTION {proceedings}
   note output
   fin.entry
 }
-
 FUNCTION {techreport}
 { output.bibitem
   format.authors "author" output.check
@@ -734,7 +643,6 @@ FUNCTION {techreport}
   note output
   fin.entry
 }
-
 FUNCTION {unpublished}
 { output.bibitem
   format.authors "author" output.check
@@ -746,83 +654,46 @@ FUNCTION {unpublished}
   note "note" output.check
   fin.entry
 }
-
 FUNCTION {default.type} { misc }
-
 MACRO {jan} {"January"}
-
 MACRO {feb} {"February"}
-
 MACRO {mar} {"March"}
-
 MACRO {apr} {"April"}
-
 MACRO {may} {"May"}
-
 MACRO {jun} {"June"}
-
 MACRO {jul} {"July"}
-
 MACRO {aug} {"August"}
-
 MACRO {sep} {"September"}
-
 MACRO {oct} {"October"}
-
 MACRO {nov} {"November"}
-
 MACRO {dec} {"December"}
-
 MACRO {acmcs} {"ACM Computing Surveys"}
-
 MACRO {acta} {"Acta Informatica"}
-
 MACRO {cacm} {"Communications of the ACM"}
-
 MACRO {ibmjrd} {"IBM Journal of Research and Development"}
-
 MACRO {ibmsj} {"IBM Systems Journal"}
-
 MACRO {ieeese} {"IEEE Transactions on Software Engineering"}
-
 MACRO {ieeetc} {"IEEE Transactions on Computers"}
-
 MACRO {ieeetcad}
  {"IEEE Transactions on Computer-Aided Design of Integrated Circuits"}
-
 MACRO {ipl} {"Information Processing Letters"}
-
 MACRO {jacm} {"Journal of the ACM"}
-
 MACRO {jcss} {"Journal of Computer and System Sciences"}
-
 MACRO {scp} {"Science of Computer Programming"}
-
 MACRO {sicomp} {"SIAM Journal on Computing"}
-
 MACRO {tocs} {"ACM Transactions on Computer Systems"}
-
 MACRO {tods} {"ACM Transactions on Database Systems"}
-
 MACRO {tog} {"ACM Transactions on Graphics"}
-
 MACRO {toms} {"ACM Transactions on Mathematical Software"}
-
 MACRO {toois} {"ACM Transactions on Office Information Systems"}
-
 MACRO {toplas} {"ACM Transactions on Programming Languages and Systems"}
-
 MACRO {tcs} {"Theoretical Computer Science"}
-
 READ
-
 FUNCTION {sortify}
 { purify$
   "l" change.case$
 }
-
 INTEGERS { len }
-
 FUNCTION {chop.word}
 { 's :=
   'len :=
@@ -831,7 +702,6 @@ FUNCTION {chop.word}
     's
   if$
 }
-
 %			There are three apalike cases: one person (Jones),
 %			two (Jones and de~Bruijn), and more (Jones et~al.).
 %			This function is much like format.crossref.editors.
@@ -853,7 +723,6 @@ FUNCTION {format.lab.names}
     }
   if$
 }
-
 FUNCTION {author.key.label}
 { author empty$
     { key empty$
@@ -864,7 +733,6 @@ FUNCTION {author.key.label}
     { author format.lab.names }
   if$
 }
-
 FUNCTION {author.editor.key.label}
 { author empty$
     { editor empty$
@@ -879,7 +747,6 @@ FUNCTION {author.editor.key.label}
     { author format.lab.names }
   if$
 }
-
 FUNCTION {editor.key.label}
 { editor empty$
     { key empty$
@@ -890,7 +757,6 @@ FUNCTION {editor.key.label}
     { editor format.lab.names }
   if$
 }
-
 FUNCTION {calc.label}
 { type$ "book" =
   type$ "inbook" =
@@ -908,7 +774,6 @@ FUNCTION {calc.label}
   *
   'label :=
 }
-
 FUNCTION {sort.format.names}
 { 's :=
   #1 'nameptr :=
@@ -930,7 +795,6 @@ FUNCTION {sort.format.names}
     }
   while$
 }
-
 FUNCTION {sort.format.title}
 { 't :=
   "A " #2
@@ -941,7 +805,6 @@ FUNCTION {sort.format.title}
   sortify
   #1 global.max$ substring$
 }
-
 FUNCTION {author.sort}
 { author empty$
     { key empty$
@@ -954,7 +817,6 @@ FUNCTION {author.sort}
     { author sort.format.names }
   if$
 }
-
 FUNCTION {author.editor.sort}
 { author empty$
     { editor empty$
@@ -971,7 +833,6 @@ FUNCTION {author.editor.sort}
     { author sort.format.names }
   if$
 }
-
 FUNCTION {editor.sort}
 { editor empty$
     { key empty$
@@ -984,7 +845,6 @@ FUNCTION {editor.sort}
     { editor sort.format.names }
   if$
 }
-
 %			apalike uses two sorting passes; the first one sets the
 %			labels so that the `a's, `b's, etc. can be computed;
 %			the second pass puts the references in "correct" order.
@@ -1017,21 +877,15 @@ FUNCTION {presort}
   #1 entry.max$ substring$
   'sort.key$ :=
 }
-
 ITERATE {presort}
-
 SORT		% by label, sort.label, title---for final label calculation
-
 STRINGS { last.label next.extra }	% apalike labels are only for the text;
-
 INTEGERS { last.extra.num }		% there are none in the bibliography
-
 FUNCTION {initialize.extra.label.stuff}	% and hence there is no `longest.label'
 { #0 int.to.chr$ 'last.label :=
   "" 'next.extra :=
   #0 'last.extra.num :=
 }
-
 FUNCTION {forward.pass}
 { last.label label =
     { last.extra.num #1 + 'last.extra.num :=
@@ -1043,7 +897,6 @@ FUNCTION {forward.pass}
     }
   if$
 }
-
 FUNCTION {reverse.pass}
 { next.extra "b" =
     { "a" 'extra.label := }
@@ -1052,13 +905,9 @@ FUNCTION {reverse.pass}
   label extra.label * 'label :=
   extra.label 'next.extra :=
 }
-
 EXECUTE {initialize.extra.label.stuff}
-
 ITERATE {forward.pass}
-
 REVERSE {reverse.pass}
-
 %				Now that the label is right we sort for real,
 %				on sort.label then year then title.  This is
 %				for the second sorting pass.
@@ -1076,11 +925,8 @@ FUNCTION {bib.sort.order}
   #1 entry.max$ substring$
   'sort.key$ :=
 }
-
 ITERATE {bib.sort.order}
-
 SORT		% by sort.label, year, title---giving final bibliography order
-
 FUNCTION {begin.bib}
 { preamble$ empty$				% no \etalchar in apalike
     'skip$
@@ -1088,16 +934,11 @@ FUNCTION {begin.bib}
   if$
   "\begin{thebibliography}{}" write$ newline$		% no labels in apalike
 }
-
 EXECUTE {begin.bib}
-
 EXECUTE {init.state.consts}
-
 ITERATE {call.type$}
-
 FUNCTION {end.bib}
 { newline$
   "\end{thebibliography}" write$ newline$
 }
-
 EXECUTE {end.bib}

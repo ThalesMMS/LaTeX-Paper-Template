@@ -83,6 +83,46 @@ check_pattern() {
     fi
 }
 
+# Function to check that an extended-regex pattern IS found in a file
+check_present() {
+    local file=$1
+    local pattern=$2
+    local desc=$3
+    count_test
+    if grep -Eq "$pattern" "$file" 2>/dev/null; then
+        pass_test "$desc"
+    else
+        fail_test "$desc (PATTERN NOT FOUND: $pattern)"
+    fi
+}
+
+# Function to check that an extended-regex pattern is NOT found in a file
+check_absent() {
+    local file=$1
+    local pattern=$2
+    local desc=$3
+    count_test
+    if grep -Eq "$pattern" "$file" 2>/dev/null; then
+        fail_test "$desc (PATTERN SHOULD BE ABSENT: $pattern)"
+    else
+        pass_test "$desc"
+    fi
+}
+
+# Function to check if a command is available
+check_cmd() {
+    local cmd=$1
+    local desc=$2
+    count_test
+    if command -v "$cmd" >/dev/null 2>&1; then
+        pass_test "$desc"
+        return 0
+    else
+        fail_test "$desc"
+        return 1
+    fi
+}
+
 # Function to print test summary
 print_test_summary() {
     echo ""

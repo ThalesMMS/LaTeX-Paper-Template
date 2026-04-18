@@ -2,6 +2,22 @@
 
 This repository is a skeleton LaTeX template with three variants (`paper`, `monograph`, and `thesis`) based on the SBC template. The content is intentionally reduced to placeholders so it can be customized quickly.
 
+## Project Status
+
+**Stable baseline with incremental improvements.** This template is safe to adopt for academic work, and future updates are expected to preserve backwards-compatible user workflows where possible. Any structure changes that affect document layout, scripts, bibliography configuration, or build commands should be documented in the release notes.
+
+Release snapshots should normally be tagged and validated through CI before publication. If CI is unavailable, the release must use documented fallback evidence, such as manual review notes, signed validation artifacts, or audit logs, and record that evidence with the release.
+
+### Releases and Versioning
+
+- See [CHANGELOG.md](CHANGELOG.md) for release history.
+- See [docs/release-checklist.md](docs/release-checklist.md) for the release checklist and reproducibility requirements.
+- For reproducible project setup, pin to a specific release tag, for example:
+
+  ```bash
+  git clone --branch v1.0.0 https://github.com/ThalesMMS/LaTeX-Paper-Template.git
+  ```
+
 ## Template Variants
 
 This template offers three variants for different kinds of academic documents:
@@ -427,6 +443,7 @@ make view-bib  # builds with BibTeX and opens the PDF
 - Bibliography options:
   - Default: `bibliography/references.tex` (`thebibliography`)
   - Alternative: BibTeX with `bibliography/sbc-template.bib` + `bibliography/sbc.bst`
+  - Detailed `sbc.bst` provenance lives in `docs/sbc-bst-provenance.md`
   - Manual example:
     `pdflatex article-main-v2.tex && bibtex article-main-v2 && pdflatex article-main-v2.tex && pdflatex article-main-v2.tex`
 

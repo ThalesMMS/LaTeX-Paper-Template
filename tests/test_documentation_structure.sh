@@ -79,6 +79,34 @@ check_text_pattern_i() {
     fi
 }
 
+check_absent_pattern() {
+    local file=$1
+    local pattern=$2
+    local desc=$3
+    count_test
+    if grep -Eq "$pattern" "$file" 2>/dev/null; then
+        fail_test "$desc (UNEXPECTED PATTERN FOUND: $pattern)"
+        return 0
+    else
+        pass_test "$desc"
+        return 0
+    fi
+}
+
+check_absent_text_pattern() {
+    local text=$1
+    local pattern=$2
+    local desc=$3
+    count_test
+    if printf '%s\n' "$text" | grep -Eq "$pattern" 2>/dev/null; then
+        fail_test "$desc (UNEXPECTED PATTERN FOUND: $pattern)"
+        return 0
+    else
+        pass_test "$desc"
+        return 0
+    fi
+}
+
 check_min_line_count() {
     local file=$1
     local min_lines=$2
@@ -135,13 +163,10 @@ check_pattern "${CHANGELOG}" "Semantic Versioning" \
 check_pattern "${CHANGELOG}" "^## \[Unreleased\]" \
     "CHANGELOG.md: '## [Unreleased]' section present"
 
-# v1.0.0 release section
-check_pattern "${CHANGELOG}" "^## \[v1\.0\.0\]" \
-    "CHANGELOG.md: '## [v1.0.0]' release section present"
-
-# v1.0.0 must carry a release date in ISO format (YYYY-MM-DD)
-check_pattern "${CHANGELOG}" "\[v1\.0\.0\].*[0-9]{4}-[0-9]{2}-[0-9]{2}" \
-    "CHANGELOG.md: v1.0.0 entry has a date in YYYY-MM-DD format"
+# v1.0.0 has not been tagged or released yet, so the changelog must not
+# present it as a released section.
+check_absent_pattern "${CHANGELOG}" "^## \[v1\.0\.0\]" \
+    "CHANGELOG.md: does not claim a released v1.0.0 section"
 
 # Required subsections under Unreleased
 UNRELEASED=""
@@ -173,15 +198,15 @@ check_text_pattern "${UNRELEASED}" "^### Fixed" \
 check_text_pattern "${UNRELEASED}" "^### Removed" \
     "CHANGELOG.md: '### Removed' subsection present"
 
-# v1.0.0 must document the key deliverables introduced in that release
-check_pattern "${CHANGELOG}" "quick-start\.sh" \
-    "CHANGELOG.md: v1.0.0 documents quick-start.sh"
+# Unreleased must document the key deliverables being prepared for release
+check_text_pattern "${UNRELEASED}" "quick-start\.sh" \
+    "CHANGELOG.md: Unreleased documents quick-start.sh"
 
-check_pattern "${CHANGELOG}" "init-project\.sh" \
-    "CHANGELOG.md: v1.0.0 documents init-project.sh"
+check_text_pattern "${UNRELEASED}" "init-project\.sh" \
+    "CHANGELOG.md: Unreleased documents init-project.sh"
 
-check_pattern "${CHANGELOG}" "GitHub Actions" \
-    "CHANGELOG.md: v1.0.0 documents GitHub Actions CI"
+check_text_pattern "${UNRELEASED}" "GitHub Actions" \
+    "CHANGELOG.md: Unreleased documents GitHub Actions CI"
 
 # -----------------------------------------------------------------------
 # 3. README.md — Project Status section
@@ -213,7 +238,7 @@ check_text_pattern "${PROJECT_STATUS}" "^## Project Status" \
 
 # Stability statement
 check_text_pattern_i "${PROJECT_STATUS}" \
-    '(^|[^[:alnum:]_])(stable|experimental|prerelease|deprecated)([^[:alnum:]_]|$)' \
+    '(^|[^[:alnum:]_])(stable|experimental|pre-release|prerelease|deprecated)([^[:alnum:]_]|$)' \
     "README.md: project posture present in Project Status section"
 
 # Link to CHANGELOG.md
@@ -228,13 +253,17 @@ check_text_pattern "${PROJECT_STATUS}" "docs/release-checklist\.md" \
 check_text_pattern "${PROJECT_STATUS}" "[Rr]eleases.*[Vv]ersioning|[Vv]ersioning.*[Rr]eleases" \
     "README.md: 'Releases and Versioning' subsection present"
 
-# Reproducible-setup guidance (pin to a release tag)
-check_text_pattern "${PROJECT_STATUS}" "git clone.*--branch|--branch.*git clone" \
-    "README.md: reproducible setup example uses 'git clone --branch'"
+# Pre-release setup guidance must not pin users to a missing tag
+check_absent_text_pattern "${PROJECT_STATUS}" "--branch[[:space:]]+v[0-9]+(\.[0-9]+){2}" \
+    "README.md: setup example does not pin to a missing release tag"
 
-# Example references a concrete tag
-check_text_pattern "${PROJECT_STATUS}" "v[0-9]+\\.[0-9]+\\.[0-9]+" \
-    "README.md: example uses a versioned tag (vMAJOR.MINOR.PATCH)"
+# README should state that the first tagged release is forthcoming
+check_text_pattern_i "${PROJECT_STATUS}" "first tagged release.*forthcoming|forthcoming.*first tagged release" \
+    "README.md: states first tagged release is forthcoming"
+
+# Default branch clone command remains available while no tag exists
+check_text_pattern "${PROJECT_STATUS}" "git clone https://github\\.com/ThalesMMS/LaTeX-Paper-Template\\.git" \
+    "README.md: default branch clone command present"
 
 # -----------------------------------------------------------------------
 # 4. docs/release-checklist.md STRUCTURE
@@ -384,16 +413,6 @@ if [ -n "$STATUS_LINE" ] && [ -n "$VARIANTS_LINE" ] && [ "$STATUS_LINE" -lt "$VA
     pass_test "README.md: 'Project Status' section appears before 'Template Variants' section (correct order)"
 else
     fail_test "README.md: 'Project Status' section ordering unexpected (status line=${STATUS_LINE}, variants line=${VARIANTS_LINE})"
-fi
-
-# CHANGELOG.md: Unreleased section must appear before v1.0.0 section (newest first)
-count_test
-UNRELEASED_LINE=$(grep -n "^## \[Unreleased\]" "${CHANGELOG}" 2>/dev/null | head -1 | cut -d: -f1)
-V100_LINE=$(grep -n "^## \[v1\.0\.0\]" "${CHANGELOG}" 2>/dev/null | head -1 | cut -d: -f1)
-if [ -n "$UNRELEASED_LINE" ] && [ -n "$V100_LINE" ] && [ "$UNRELEASED_LINE" -lt "$V100_LINE" ]; then
-    pass_test "CHANGELOG.md: [Unreleased] section appears before [v1.0.0] (newest-first order)"
-else
-    fail_test "CHANGELOG.md: section ordering unexpected (Unreleased line=${UNRELEASED_LINE}, v1.0.0 line=${V100_LINE})"
 fi
 
 finish_test_run() {

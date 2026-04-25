@@ -4,7 +4,7 @@ This repository is a skeleton LaTeX template with three variants (`paper`, `mono
 
 ## Project Status
 
-**Stable baseline with incremental improvements.** This template is safe to adopt for academic work, and future updates are expected to preserve backwards-compatible user workflows where possible. Any structure changes that affect document layout, scripts, bibliography configuration, or build commands should be documented in the release notes.
+**Pre-release baseline approaching v1.0.0 stability.** This template is suitable for evaluation and early academic project setup, but the first tagged release has not been published yet. Future updates are expected to preserve backwards-compatible user workflows where possible once the baseline is tagged. Any structure changes that affect document layout, scripts, bibliography configuration, or build commands should be documented in the release notes.
 
 Release snapshots should normally be tagged and validated through CI before publication. If CI is unavailable, the release must use documented fallback evidence, such as manual review notes, signed validation artifacts, or audit logs, and record that evidence with the release.
 
@@ -12,10 +12,11 @@ Release snapshots should normally be tagged and validated through CI before publ
 
 - See [CHANGELOG.md](CHANGELOG.md) for release history.
 - See [docs/release-checklist.md](docs/release-checklist.md) for the release checklist and reproducibility requirements.
-- For reproducible project setup, pin to a specific release tag, for example:
+- The first tagged release is forthcoming and will follow the checklist in [docs/release-checklist.md](docs/release-checklist.md).
+- Until a release tag exists, clone the default branch for evaluation or development:
 
   ```bash
-  git clone --branch v1.0.0 https://github.com/ThalesMMS/LaTeX-Paper-Template.git
+  git clone https://github.com/ThalesMMS/LaTeX-Paper-Template.git
   ```
 
 ## Template Variants
@@ -661,3 +662,9 @@ The test suite is designed for CI/CD pipelines:
 **Exit codes:**
 - `0` - All tests passed (safe to deploy)
 - `1` - Some tests failed (block deployment)
+
+## Contributing & Support
+
+- [CONTRIBUTING.md](CONTRIBUTING.md) - how to propose changes and validate pull requests.
+- [SUPPORT.md](SUPPORT.md) - where to ask questions or file actionable bug reports.
+- [SECURITY.md](SECURITY.md) - how to report security-sensitive issues privately.

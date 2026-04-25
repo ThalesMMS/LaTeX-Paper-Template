@@ -61,21 +61,6 @@
 \usepackage{tocloft}
 \setlength{\cftbeforechapskip}{0.5em}
 
-% Hyperlinks (preenche metadados do PDF)
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    urlcolor=blue,
-    citecolor=blue,
-    pdftitle={My Monograph},
-    pdfauthor={Jane Doe},
-    pdfsubject={[Área de Estudo]},
-    pdfkeywords={[palavras-chave, separadas, por vírgula]},
-    bookmarks=true,
-    bookmarksopen=true,
-    bookmarksnumbered=true,
-}
-
 % Comandos de placeholders (consumidos em \title, \author e \address)
 \newcommand{\DocumentTitle}{My Monograph}
 \newcommand{\AuthorName}{Jane Doe}
@@ -84,6 +69,21 @@
 \newcommand{\AuthorEmail}{jane@example.com}
 \newcommand{\AdvisorName}{[Nome do Orientador]}
 \newcommand{\AdvisorTitle}{[Prof. Dr./Dra.]}
+
+% Hyperlinks (preenche metadados do PDF)
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\DocumentTitle},
+    pdfauthor={\AuthorName},
+    pdfsubject={[Área de Estudo]},
+    pdfkeywords={[palavras-chave, separadas, por vírgula]},
+    bookmarks=true,
+    bookmarksopen=true,
+    bookmarksnumbered=true,
+}
 
 % Metadados padrão (para projetos que usam este arquivo como entrada principal)
 \title{\DocumentTitle}

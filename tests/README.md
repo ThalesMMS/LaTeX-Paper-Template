@@ -520,7 +520,7 @@ A: Yes! Tests help catch breaking changes when customizing the template.
 
 ## Version History
 
-- **v1.0.0** (2026-01-25): Initial test suite release
+- **1.0.0-dev**: Initial test suite under active validation before the first tagged release
   - Required files validation
   - Compilation tests (3 variants × 3 backends)
   - LaTeX warning detection

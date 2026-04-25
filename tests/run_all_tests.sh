@@ -59,7 +59,7 @@ EOF
 }
 
 show_version() {
-    echo "LaTeX Template Test Suite Runner v1.0.0"
+    echo "LaTeX Template Test Suite Runner 1.0.0-dev"
 }
 
 # Parse command-line arguments

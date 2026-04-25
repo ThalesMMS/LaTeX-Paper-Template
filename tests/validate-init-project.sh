@@ -19,6 +19,15 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 ERRORS=0
+TEMP_DIR=""
+
+cleanup_temp_dir() {
+    if [ -n "$TEMP_DIR" ] && [ -d "$TEMP_DIR" ]; then
+        rm -rf "$TEMP_DIR"
+    fi
+}
+
+trap cleanup_temp_dir EXIT
 
 # Function to check if a file exists
 check_file() {
@@ -46,6 +55,36 @@ check_pattern() {
         echo -e "${RED}✗${NC} $desc (PATTERN NOT FOUND: $pattern)"
         ERRORS=$((ERRORS + 1))
         return 1
+    fi
+}
+
+# Function to check if fixed text exists in file
+check_fixed_pattern() {
+    local file=$1
+    local pattern=$2
+    local desc=$3
+    if grep -Fq "$pattern" "$file" 2>/dev/null; then
+        echo -e "${GREEN}✓${NC} $desc"
+        return 0
+    else
+        echo -e "${RED}✗${NC} $desc (TEXT NOT FOUND: $pattern)"
+        ERRORS=$((ERRORS + 1))
+        return 1
+    fi
+}
+
+# Function to check if fixed text is absent from file
+check_fixed_pattern_absent() {
+    local file=$1
+    local pattern=$2
+    local desc=$3
+    if grep -Fq "$pattern" "$file" 2>/dev/null; then
+        echo -e "${RED}✗${NC} $desc (UNEXPECTED TEXT FOUND: $pattern)"
+        ERRORS=$((ERRORS + 1))
+        return 1
+    else
+        echo -e "${GREEN}✓${NC} $desc"
+        return 0
     fi
 }
 
@@ -77,6 +116,66 @@ test_command_fails() {
         echo -e "${GREEN}✓${NC} $desc"
         return 0
     fi
+}
+
+create_init_project_test_copy() {
+    local target_dir=$1
+
+    mkdir -p "$target_dir"
+    cp init-project.sh "$target_dir/"
+    cp -R config "$target_dir/"
+    cp -R chapters "$target_dir/"
+}
+
+check_config_metadata_references() {
+    local config_file=$1
+    local label=$2
+
+    check_fixed_pattern "$config_file" "pdftitle={\\DocumentTitle}" "${label}: PDF title metadata uses DocumentTitle macro"
+    check_fixed_pattern "$config_file" "pdfauthor={\\AuthorName}" "${label}: PDF author metadata uses AuthorName macro"
+
+    if grep -F "pdftitle={" "$config_file" | grep -Fvq "pdftitle={\\DocumentTitle}"; then
+        echo -e "${RED}✗${NC} ${label}: PDF title metadata should not duplicate a literal value"
+        ERRORS=$((ERRORS + 1))
+    else
+        echo -e "${GREEN}✓${NC} ${label}: PDF title metadata has no duplicated literal value"
+    fi
+
+    if grep -F "pdfauthor={" "$config_file" | grep -Fvq "pdfauthor={\\AuthorName}"; then
+        echo -e "${RED}✗${NC} ${label}: PDF author metadata should not duplicate a literal value"
+        ERRORS=$((ERRORS + 1))
+    else
+        echo -e "${GREEN}✓${NC} ${label}: PDF author metadata has no duplicated literal value"
+    fi
+
+    local macro_line
+    local hypersetup_line
+    macro_line=$(grep -nF "\\newcommand{\\DocumentTitle}" "$config_file" | head -n 1 | cut -d: -f1)
+    hypersetup_line=$(grep -nF "\\hypersetup{" "$config_file" | head -n 1 | cut -d: -f1)
+
+    if [ -n "$macro_line" ] && [ -n "$hypersetup_line" ] && [ "$macro_line" -lt "$hypersetup_line" ]; then
+        echo -e "${GREEN}✓${NC} ${label}: placeholder macros are defined before hypersetup"
+    else
+        echo -e "${RED}✗${NC} ${label}: placeholder macros must be defined before hypersetup"
+        ERRORS=$((ERRORS + 1))
+    fi
+}
+
+check_initialized_config() {
+    local config_file=$1
+    local variant=$2
+    local project_name=$3
+    local author_name=$4
+    local institution=$5
+    local location=$6
+    local email=$7
+
+    check_fixed_pattern "$config_file" "\\newcommand{\\DocumentTitle}{${project_name}}" "${variant}: DocumentTitle macro updated"
+    check_fixed_pattern "$config_file" "\\newcommand{\\AuthorName}{${author_name}}" "${variant}: AuthorName macro updated"
+    check_fixed_pattern "$config_file" "\\newcommand{\\AuthorInstitution}{${institution}}" "${variant}: AuthorInstitution macro updated"
+    check_fixed_pattern "$config_file" "\\newcommand{\\AuthorLocation}{${location}}" "${variant}: AuthorLocation macro updated"
+    check_fixed_pattern "$config_file" "\\newcommand{\\AuthorEmail}{${email}}" "${variant}: AuthorEmail macro updated"
+    check_config_metadata_references "$config_file" "$variant"
 }
 
 echo "=== 1. CHECKING SCRIPT FILE EXISTS ==="
@@ -406,6 +505,80 @@ check_pattern "init-project.sh" "temp_file" "Script uses temporary files for saf
 check_pattern "init-project.sh" "mv.*temp_file" "Script moves temp file to replace original"
 
 echo ""
+echo "=== 13. TESTING CONFIG METADATA INITIALIZATION ==="
+echo ""
+
+for config_file in config/article-config.tex config/paper-config.tex config/monograph-config.tex config/thesis-config.tex; do
+    check_config_metadata_references "$config_file" "$config_file"
+done
+
+echo ""
+
+TEMP_DIR=$(mktemp -d)
+
+for variant in paper monograph thesis; do
+    test_project_dir="${TEMP_DIR}/${variant}"
+    create_init_project_test_copy "$test_project_dir"
+
+    first_title="Initial ${variant} Title"
+    first_author="Initial ${variant} Author"
+    first_institution="Initial ${variant} University"
+    first_location="Initial ${variant} City -- ST -- Country"
+    first_email="initial-${variant}@example.com"
+
+    second_title="Updated ${variant} Title"
+    second_author="Updated ${variant} Author"
+    second_institution="Updated ${variant} Institute"
+    second_location="Updated ${variant} City -- ST -- Country"
+    second_email="updated-${variant}@example.com"
+
+    if (
+        cd "$test_project_dir" && \
+        bash init-project.sh --non-interactive \
+            --name "$first_title" \
+            --author "$first_author" \
+            --institution "$first_institution" \
+            --location "$first_location" \
+            --email "$first_email" \
+            --variant "$variant" \
+            --biblio thebibliography >/dev/null
+    ); then
+        echo -e "${GREEN}✓${NC} ${variant}: first non-interactive initialization succeeds"
+    else
+        echo -e "${RED}✗${NC} ${variant}: first non-interactive initialization failed"
+        ERRORS=$((ERRORS + 1))
+        continue
+    fi
+
+    config_file="${test_project_dir}/config/${variant}-config.tex"
+    check_initialized_config "$config_file" "$variant" "$first_title" "$first_author" "$first_institution" "$first_location" "$first_email"
+
+    if (
+        cd "$test_project_dir" && \
+        bash init-project.sh --non-interactive \
+            --name "$second_title" \
+            --author "$second_author" \
+            --institution "$second_institution" \
+            --location "$second_location" \
+            --email "$second_email" \
+            --variant "$variant" \
+            --biblio thebibliography >/dev/null
+    ); then
+        echo -e "${GREEN}✓${NC} ${variant}: second non-interactive initialization succeeds"
+    else
+        echo -e "${RED}✗${NC} ${variant}: second non-interactive initialization failed"
+        ERRORS=$((ERRORS + 1))
+        continue
+    fi
+
+    check_initialized_config "$config_file" "$variant" "$second_title" "$second_author" "$second_institution" "$second_location" "$second_email"
+    check_fixed_pattern_absent "$config_file" "\\newcommand{\\DocumentTitle}{${first_title}}" "${variant}: rerun removes previous DocumentTitle value"
+    check_fixed_pattern_absent "$config_file" "\\newcommand{\\AuthorName}{${first_author}}" "${variant}: rerun removes previous AuthorName value"
+    check_fixed_pattern_absent "$config_file" "pdftitle={${second_title}}" "${variant}: PDF title metadata does not duplicate literal title"
+    check_fixed_pattern_absent "$config_file" "pdfauthor={${second_author}}" "${variant}: PDF author metadata does not duplicate literal author"
+done
+
+echo ""
 echo "========================================"
 echo "VALIDATION SUMMARY"
 echo "========================================"
@@ -424,6 +597,7 @@ if [ $ERRORS -eq 0 ]; then
     echo "  - Error handling and input validation"
     echo "  - Chapter removal functionality"
     echo "  - Configuration file generation"
+    echo "  - Config metadata initialization and rerun behavior"
     echo ""
     echo "Usage:"
     echo "  Interactive:     bash init-project.sh"

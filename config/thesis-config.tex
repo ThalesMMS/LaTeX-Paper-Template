@@ -82,22 +82,6 @@
 % \numberwithin{figure}{chapter}
 % \numberwithin{table}{chapter}
 
-% Hyperlinks (preenche metadados do PDF)
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    urlcolor=blue,
-    citecolor=blue,
-    pdftitle={PhD Thesis},
-    pdfauthor={John Smith},
-    pdfsubject={[Área de Pesquisa]},
-    pdfkeywords={[palavras-chave, separadas, por vírgula]},
-    bookmarks=true,
-    bookmarksopen=true,
-    bookmarksnumbered=true,
-    pdfstartview=FitH,
-}
-
 % Comandos de placeholders (consumidos em \title, \author e \address)
 \newcommand{\DocumentTitle}{PhD Thesis}
 \newcommand{\DocumentSubtitle}{[Subtítulo (opcional)]}
@@ -112,6 +96,22 @@
 \newcommand{\ThesisType}{[Tese de Doutorado / Dissertação de Mestrado]}
 \newcommand{\ThesisDate}{[Mês] de [Ano]}
 \newcommand{\DefenseDate}{[Data da Defesa]}
+
+% Hyperlinks (preenche metadados do PDF)
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\DocumentTitle},
+    pdfauthor={\AuthorName},
+    pdfsubject={[Área de Pesquisa]},
+    pdfkeywords={[palavras-chave, separadas, por vírgula]},
+    bookmarks=true,
+    bookmarksopen=true,
+    bookmarksnumbered=true,
+    pdfstartview=FitH,
+}
 
 % Metadados padrão (para projetos que usam este arquivo como entrada principal)
 \title{\DocumentTitle}

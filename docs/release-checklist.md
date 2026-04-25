@@ -69,7 +69,7 @@ and note it in the release notes. The bundle must include:
 2. Run the pre-release validation checklist.
 3. Record the reproducibility bundle.
 4. Create an annotated git tag matching the version. Replace `<version>` with
-   the actual release tag, such as `v1.0.0`:
+   the actual release tag, such as `vX.Y.Z`:
 
    ```bash
    git tag -a <version> -m "Release <version>"

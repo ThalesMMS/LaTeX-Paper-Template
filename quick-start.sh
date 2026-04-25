@@ -15,7 +15,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Script version
-VERSION="1.0.0"
+VERSION="1.0.0-dev"
 
 # Script mode - default to interactive
 NON_INTERACTIVE=false

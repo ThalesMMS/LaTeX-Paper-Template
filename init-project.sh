@@ -15,7 +15,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Script version
-VERSION="1.0.0"
+VERSION="1.0.0-dev"
 
 # Trap to handle cleanup on error
 cleanup_on_error() {
@@ -645,38 +645,22 @@ generate_config_file() {
     # Create a temporary file for processing
     local temp_file="${config_file}.tmp"
 
-    # Escape special characters for sed (forward slashes, backslashes, etc.)
-    local escaped_project_name=$(echo "$PROJECT_NAME" | sed 's/[\/&]/\\&/g')
-    local escaped_author_name=$(echo "$AUTHOR_NAME" | sed 's/[\/&]/\\&/g')
-    local escaped_institution=$(echo "$INSTITUTION" | sed 's/[\/&]/\\&/g')
-    local escaped_location=$(echo "$LOCATION" | sed 's/[\/&]/\\&/g')
-    local escaped_email=$(echo "$EMAIL" | sed 's/[\/&]/\\&/g')
+    # Escape special characters for sed replacement values.
+    local escaped_project_name=$(printf '%s\n' "$PROJECT_NAME" | sed 's/[\\&|]/\\&/g')
+    local escaped_author_name=$(printf '%s\n' "$AUTHOR_NAME" | sed 's/[\\&|]/\\&/g')
+    local escaped_institution=$(printf '%s\n' "$INSTITUTION" | sed 's/[\\&|]/\\&/g')
+    local escaped_location=$(printf '%s\n' "$LOCATION" | sed 's/[\\&|]/\\&/g')
+    local escaped_email=$(printf '%s\n' "$EMAIL" | sed 's/[\\&|]/\\&/g')
 
-    # Replace the newcommand definitions based on variant-specific placeholders
-    # Each variant has different placeholder values, so we need variant-specific replacements
+    # Replace the newcommand definitions by command name so reruns update
+    # already-initialized config files instead of depending on seed placeholders.
     case "$variant" in
-        paper)
-            sed -e "s|\\\\newcommand{\\\\DocumentTitle}{Test Project}|\\\\newcommand{\\\\DocumentTitle}{${escaped_project_name}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorName}{Test Author}|\\\\newcommand{\\\\AuthorName}{${escaped_author_name}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorInstitution}{Test Uni}|\\\\newcommand{\\\\AuthorInstitution}{${escaped_institution}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorLocation}{Test City}|\\\\newcommand{\\\\AuthorLocation}{${escaped_location}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorEmail}{test@example\\.com}|\\\\newcommand{\\\\AuthorEmail}{${escaped_email}}|g" \
-                "$config_file" > "$temp_file"
-            ;;
-        monograph)
-            sed -e "s|\\\\newcommand{\\\\DocumentTitle}{My Monograph}|\\\\newcommand{\\\\DocumentTitle}{${escaped_project_name}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorName}{Jane Doe}|\\\\newcommand{\\\\AuthorName}{${escaped_author_name}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorInstitution}{Research Institute}|\\\\newcommand{\\\\AuthorInstitution}{${escaped_institution}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorLocation}{New York -- NY -- USA}|\\\\newcommand{\\\\AuthorLocation}{${escaped_location}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorEmail}{jane@example\\.com}|\\\\newcommand{\\\\AuthorEmail}{${escaped_email}}|g" \
-                "$config_file" > "$temp_file"
-            ;;
-        thesis)
-            sed -e "s|\\\\newcommand{\\\\DocumentTitle}{PhD Thesis}|\\\\newcommand{\\\\DocumentTitle}{${escaped_project_name}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorName}{John Smith}|\\\\newcommand{\\\\AuthorName}{${escaped_author_name}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorInstitution}{University Department}|\\\\newcommand{\\\\AuthorInstitution}{${escaped_institution}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorLocation}{Boston -- MA -- USA}|\\\\newcommand{\\\\AuthorLocation}{${escaped_location}}|g" \
-                -e "s|\\\\newcommand{\\\\AuthorEmail}{john@example\\.com}|\\\\newcommand{\\\\AuthorEmail}{${escaped_email}}|g" \
+        paper|monograph|thesis)
+            sed -e "s|\\\\newcommand{\\\\DocumentTitle}{[^}]*}|\\\\newcommand{\\\\DocumentTitle}{${escaped_project_name}}|g" \
+                -e "s|\\\\newcommand{\\\\AuthorName}{[^}]*}|\\\\newcommand{\\\\AuthorName}{${escaped_author_name}}|g" \
+                -e "s|\\\\newcommand{\\\\AuthorInstitution}{[^}]*}|\\\\newcommand{\\\\AuthorInstitution}{${escaped_institution}}|g" \
+                -e "s|\\\\newcommand{\\\\AuthorLocation}{[^}]*}|\\\\newcommand{\\\\AuthorLocation}{${escaped_location}}|g" \
+                -e "s|\\\\newcommand{\\\\AuthorEmail}{[^}]*}|\\\\newcommand{\\\\AuthorEmail}{${escaped_email}}|g" \
                 "$config_file" > "$temp_file"
             ;;
         *)

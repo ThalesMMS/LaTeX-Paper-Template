@@ -74,22 +74,22 @@
     frame=single,
 }
 
-% Hyperlinks (preenche metadados do PDF)
-\hypersetup{
-    colorlinks=true,
-    linkcolor=black,
-    urlcolor=blue,
-    citecolor=blue,
-    pdftitle={[Título do Trabalho]},
-    pdfauthor={[Nome do Autor]},
-}
-
 % Comandos de placeholders (consumidos em \title, \author e \address)
 \newcommand{\DocumentTitle}{[Título do Trabalho]}
 \newcommand{\AuthorName}{[Nome do Autor]}
 \newcommand{\AuthorInstitution}{[Departamento / Curso] -- [Instituição]}
 \newcommand{\AuthorLocation}{[Cidade] -- [UF] -- [País]}
 \newcommand{\AuthorEmail}{[email@exemplo.com]}
+
+% Hyperlinks (preenche metadados do PDF)
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\DocumentTitle},
+    pdfauthor={\AuthorName},
+}
 
 % Metadados padrão (para projetos que usam este arquivo como entrada principal)
 \title{\DocumentTitle}
